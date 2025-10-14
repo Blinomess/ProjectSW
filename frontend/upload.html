@@ -2,19 +2,36 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Upload</title>
+    <title>Файловый менеджер</title>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
     <header>
         <h1>Войдите, чтобы загружать и просматривать файлы!</h1>
     </header>
-    <main style="display: none;">
-        <h2>Загрузка файла</h2>
-        <input type="file" id="fileInput">
-        <button onclick="uploadFile()">Загрузить</button>
+
+    <main>
+        <section>
+            <button onclick="logout()">Выйти</button>
+        </section>
+
+        <section>
+            <h2>Загрузка файла</h2>
+            <input type="text" id="fileNameInput" placeholder="Введите название файла">
+            <input type="text" id="fileDescInput" placeholder="Описание файла (необязательно)">
+            <input type="file" id="fileInput">
+            <button onclick="uploadFile()">Загрузить</button>
+        </section>
+
+        <section>
+            <h2>Поиск и просмотр файлов</h2>
+            <input type="text" id="fileSearchInput" placeholder="Введите имя файла">
+            <button id="fileSearchBtn">Найти</button>
+            <div id="fileList"></div>
+        </section>
     </main>
-    <script src="./scripts/script.js"></script>
-    <script src="./scripts/upload.js"></script>
+
+    <script src="./scripts/script.js" defer></script>
+    <script src="./scripts/upload.js" defer></script>
 </body>
 </html>

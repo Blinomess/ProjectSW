@@ -1,18 +1,152 @@
-body { 
-    font-family: Arial, 
-    sans-serif; 
-    padding: 20px; 
+/* === БАЗОВЫЕ НАСТРОЙКИ === */
+* {
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
 }
 
-input, button { 
-    margin: 5px; padding: 5px; 
+body {
+    margin: 0;
+    background: #f5f7fb;
+    color: #222;
+    line-height: 1.6;
 }
 
-h2 { 
-    margin-top: 20px; 
+/* === HEADER === */
+header {
+    background: #4b6cb7;
+    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-pre { 
-    background: #f4f4f4; 
-    padding: 10px; 
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+header button {
+    background: #ffffff22;
+    border: 1px solid #fff4;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+header button:hover {
+    background: #fff;
+    color: #182848;
+}
+
+/* === MAIN === */
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* === ЗАГРУЗКА === */
+.upload-section {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.upload-section h2 {
+    margin-top: 0;
+    color: #182848;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-form input[type="text"],
+.upload-form input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.upload-form button {
+    background: #4b6cb7;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.upload-form button:hover {
+    background: #3b5998;
+}
+
+/* === СПИСОК ФАЙЛОВ === */
+.files-section h2 {
+    color: #182848;
+}
+
+.file-grid {
+    display: grid;
+    gap: 20px;
+}
+
+/* === КАРТОЧКА ФАЙЛА === */
+.file-item {
+    background: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.file-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.file-item p {
+    margin: 6px 0;
+}
+
+/* Кнопки внутри карточки */
+.file-item button {
+    margin-top: 8px;
+    margin-right: 8px;
+    background: #e4e9f2;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.file-item button:hover {
+    background: #d4dbe6;
+}
+
+/* === КАРТИНКИ === */
+.file-item img {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* === FOOTER === */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #666;
 }

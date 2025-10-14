@@ -44,7 +44,11 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: projectsw-frontend
+    restart: always
     ports:
       - "80:80"
     depends_on:

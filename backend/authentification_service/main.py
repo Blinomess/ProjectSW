@@ -1,9 +1,15 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from routes import router
-from database import Base, engine
+from database import Base, engine, SessionLocal
+import models
 
 Base.metadata.create_all(bind=engine)
+
+#db = SessionLocal()
+#db.query(models.Session).delete()
+#db.commit()
+#db.close()
 
 app = FastAPI()
 
@@ -20,4 +26,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(router, prefix="/auth", tags=["auth"])
+app.include_router(router, prefix="", tags=["auth"])
