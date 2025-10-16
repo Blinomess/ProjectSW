@@ -12,7 +12,7 @@ async function register() {
         body: JSON.stringify({username, password})
     });
     const data = await res.json();
-    alert(JSON.stringify(data));
+    console.log(data);
 }
 
 async function login() {
@@ -28,7 +28,7 @@ async function login() {
         body: JSON.stringify({username, password})
     });
     const data = await res.json();
-    alert(JSON.stringify(data));
+    console.log(data);
     if(data.session_id){
         localStorage.setItem('session_id', data.session_id);
         window.location.href = 'upload.html';

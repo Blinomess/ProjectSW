@@ -2,19 +2,25 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Auth</title>
+    <title>Войти</title>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <h2>Регистрация</h2>
-    <input type="text" id="reg-username" placeholder="Username">
-    <input type="password" id="reg-password" placeholder="Password">
-    <button onclick="register()">Зарегистрироваться</button>
+    <div class="container">
+        <div class="section">
+            <h2>Регистрация</h2>
+            <input type="text" id="reg-username" placeholder="Придумайте имя пользователя">
+            <input type="password" id="reg-password" placeholder="Придумайте пароль">
+            <button onclick="register()">Зарегистрироваться</button>
+        </div>
 
-    <h2>Вход</h2>
-    <input type="text" id="login-username" placeholder="Username">
-    <input type="password" id="login-password" placeholder="Password">
-    <button onclick="login()">Войти</button>
+        <div class="section">
+            <h2>Вход</h2>
+            <input type="text" id="login-username" placeholder="Имя пользователя">
+            <input type="password" id="login-password" placeholder="Пароль">
+            <button onclick="login()">Войти</button>
+        </div>
+    </div>
 
     <script src="./scripts/script.js"></script>
 </body>

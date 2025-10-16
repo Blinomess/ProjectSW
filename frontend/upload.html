@@ -3,32 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Файловый менеджер</title>
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/uploadstyle.css">
 </head>
 <body>
     <header>
-        <h1>Войдите, чтобы загружать и просматривать файлы!</h1>
+        <h1>Добро пожаловать!</h1>
+        <div class="nav_btn">
+            <div class="choose_btn">
+                <button onclick="showSection('upload')">Загрузка</button>
+                <button onclick="showSection('search')">Поиск</button>
+            </div>
+            <button onclick="logout()" class="btn_exit">Выйти</button>
+        </div>
     </header>
-
     <main>
-        <section>
-            <button onclick="logout()">Выйти</button>
-        </section>
+        <div class="content">
+            <section class="upload_file" id="upload_section">
+                <h2>Загрузка файла</h2>
+                <div class="inputs_up">
+                    <input type="text" id="fileNameInput" placeholder="Введите название файла">
+                    <input type="text" id="fileDescInput" placeholder="Описание файла (необязательно)">
+                    <input type="file" id="fileInput">
+                </div>
+                <button onclick="uploadFile()">Загрузить</button>
+            </section>
 
-        <section>
-            <h2>Загрузка файла</h2>
-            <input type="text" id="fileNameInput" placeholder="Введите название файла">
-            <input type="text" id="fileDescInput" placeholder="Описание файла (необязательно)">
-            <input type="file" id="fileInput">
-            <button onclick="uploadFile()">Загрузить</button>
-        </section>
-
-        <section>
-            <h2>Поиск и просмотр файлов</h2>
-            <input type="text" id="fileSearchInput" placeholder="Введите имя файла">
-            <button id="fileSearchBtn">Найти</button>
-            <div id="fileList"></div>
-        </section>
+            <section class="search_file" id="search_section" style="display: none;">
+                <h2>Поиск и просмотр файлов</h2>
+                <input type="text" id="fileSearchInput" placeholder="Введите имя файла">
+                <button id="fileSearchBtn">Найти</button>
+                <h2 class="list_files">Список файлов:</h2>
+                <div id="fileList"></div>
+            </section>
+        </div>
     </main>
 
     <script src="./scripts/script.js" defer></script>

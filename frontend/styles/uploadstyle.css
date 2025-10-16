@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 20px;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top:100px;
+}
+
+h2 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 25px;
+}
+
+input[type="text"], input[type="file"] {
+    padding: 15px 10px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    font-size: 15px;
+    min-width: 450px;
+}
+
+button {
+    padding: 15px 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #46036d;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 150px;
+}
+
+button:hover {
+    background-color: #380357;
+}
+
+.btn_exit{
+    margin: 10px 0;
+}
+
+#fileList {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.file-item img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.file-item p {
+    margin: 5px 0;
+    max-width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+.file-item .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap:10px;
+}
+
+.card_btn{
+    width:130px;
+    font-size: 14px;
+}
+
+.file-item button {
+    flex: 1;
+    margin: 0 5px;
+}
+
+.stats {
+    margin-top: 10px;
+}
+
+.choose_btn {
+    display: flex;
+    gap:50px;
+}
+
+.choose_btn button {
+    min-width: 108px;
+    margin: 10px 0;
+    background-color: #535353;
+    color: #e0e0e0;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.choose_btn button:hover {
+    background-color: #3f3f3f;
+}
+
+.content {
+    flex: 1;
+}
+
+.nav_btn{
+    display: flex;
+    gap:50px;
+}
+
+.upload_file{
+    display: flex;
+    flex-direction: column;
+    gap:35px;
+}
+
+
+.inputs_up{
+    display: flex;
+    flex-direction: column;
+    gap:35px;
+}
+
+.search_file{
+    display: flex;
+    flex-direction: column;
+    min-width: 450px;
+    gap: 35px;
+    align-items: center;
+}
+
+.list_files{
+    margin-top: 25px;
+}
+

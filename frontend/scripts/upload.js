@@ -8,29 +8,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const main = document.querySelector('main');
-    const header = document.querySelector('header');
 
-    if (main && header) {
+    if (main) {
         main.style.display = 'block';
-        header.style.display = 'none';
     }
 
     await updateFileList();
 
     const searchInput = document.getElementById('fileSearchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', async (e) => {
-            const query = e.target.value.trim().toLowerCase();
-            await updateFileList(query);
-        });
+    function debounce(fn, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
     }
 
-    const searchBtn = document.getElementById('fileSearch');
-    if (searchBtn) {
-        searchBtn.addEventListener('click', async () => {
-            const query = searchInput.value.trim().toLowerCase();
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(async (e) => {
+            const query = e.target.value.trim().toLowerCase();
             await updateFileList(query);
-        });
+        }, 300));
     }
 });
 
@@ -65,7 +63,7 @@ async function uploadFile() {
 
 async function getCsvPreview(filename) {
     try {
-        const response = await fetch(`/api/data/preview/${filename}`);
+        const response = await fetch(`/api/processing/analyze/${filename}`);
         if (!response.ok) throw new Error(`Ошибка ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -97,12 +95,21 @@ async function updateFileList(searchQuery = '') {
             div.classList.add('file-item');
             div.style.border = '1px solid #ccc';
             div.style.padding = '10px';
-            div.style.marginBottom = '10px';
+            div.style.margin = '10px';
             div.style.borderRadius = '8px';
-            div.style.background = '#fdfdfd';
+            div.style.background = '#1e1e1e';
+            div.style.boxSizing = 'border-box';
+            div.style.display = 'flex';
+            div.style.flexDirection = 'column';
+            div.style.justifyContent = 'space-between';
+            div.style.alignItems='center';
+            div.style.height='450px';
+            div.style.minHeight='300px';
+            div.style.width='300px';
+
 
             const info = document.createElement('p');
-            const descrptnShow = file.description && file.description.trim() !== "" ? file.description : "Нет";
+            const descrptnShow = file.description?.trim() || "Нет";
             info.textContent = `Имя: ${file.title}, Тип: ${file.filetype}, Описание: ${descrptnShow}`;
             info.style.fontWeight = 'bold';
             div.appendChild(info);
@@ -110,6 +117,7 @@ async function updateFileList(searchQuery = '') {
             if (file.filetype === 'csv') {
                 const previewContainer = document.createElement('div');
                 previewContainer.style.marginTop = '10px';
+                previewContainer.style.maxWidth = '100%';
 
                 const previewTitle = document.createElement('p');
                 previewTitle.textContent = 'Первые строки и статистика:';
@@ -117,11 +125,10 @@ async function updateFileList(searchQuery = '') {
                 previewContainer.appendChild(previewTitle);
 
                 const previewContent = document.createElement('pre');
-                previewContent.style.background = '#f5f5f5';
+                previewContent.style.background = '#000000ff';
                 previewContent.style.padding = '10px';
                 previewContent.style.borderRadius = '5px';
                 previewContent.style.overflowX = 'auto';
-                previewContent.textContent = 'Загрузка...';
                 previewContainer.appendChild(previewContent);
 
                 const statsContainer = document.createElement('div');
@@ -134,25 +141,29 @@ async function updateFileList(searchQuery = '') {
                     previewContent.textContent = data.preview;
                     statsContainer.innerHTML = `
                         <p><b>Количество столбцов:</b> ${data.columns}</p>
-                        <p><b>Суммы по столбцам:</b> ${data.sums.join(', ')}</p>
+                        <p><b>Суммы по столбцам:</b> ${(data.sums || []).join(', ')}</p>
                         <p><b>Средние по столбцам:</b> ${data.averages.map(a => a.toFixed(2)).join(', ')}</p>
-                        <p><b>Максимальные значения по столбцам:</b> ${data.max_values.join(', ')}</p>
+                        <p><b>Максимальные значения по столбцам:</b> ${(data.max_values || []).join(', ')}</p>
                     `;
                 });
             }
 
             if (file.filetype === 'photo') {
+                const div_img= document.createElement('div');
+                div_img.classList.add('div_img');
+                div_img.style.maxHeight='300px';
+                div_img.style.overflow='auto';
+                div_img.style.margin='10px 0';
                 const img = document.createElement('img');
                 img.src = `/api/data/download/${file.filename}`;
                 img.alt = file.filename;
-                img.style.maxWidth = '200px';
-                div.appendChild(img);
+                div_img.appendChild(img);
+                div.appendChild(div_img);
             }
 
             const downloadBtn = document.createElement('button');
+            downloadBtn.classList.add('card_btn');
             downloadBtn.textContent = 'Скачать';
-            downloadBtn.style.display = 'block';
-            downloadBtn.style.marginTop = '5px';
             downloadBtn.onclick = () => {
                 const link = document.createElement('a');
                 link.href = `/api/data/download/${file.filename}`;
@@ -161,11 +172,11 @@ async function updateFileList(searchQuery = '') {
                 link.click();
                 document.body.removeChild(link);
             };
-            div.appendChild(downloadBtn);
+            
 
             const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('card_btn');
             deleteBtn.textContent = 'Удалить';
-            deleteBtn.style.marginTop = '5px';
             deleteBtn.onclick = async () => {
                 const confirmDelete = confirm(`Вы уверены, что хотите удалить ${file.filename}?`);
                 if (!confirmDelete) return;
@@ -178,8 +189,15 @@ async function updateFileList(searchQuery = '') {
                     const errorData = await res.json();
                     alert(`Ошибка: ${errorData.detail}`);
                 }
-            };
-            div.appendChild(deleteBtn);
+            }
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('buttons-container');
+
+            buttonsContainer.appendChild(downloadBtn);
+            buttonsContainer.appendChild(deleteBtn);
+
+            div.appendChild(buttonsContainer);
 
             fileList.appendChild(div);
         });
@@ -191,5 +209,19 @@ async function updateFileList(searchQuery = '') {
     } catch (err) {
         console.error(err);
         document.getElementById('fileList').textContent = 'Ошибка при загрузке файлов';
+    }
+}
+
+
+function showSection(section) {
+    const uploadSection = document.getElementById('upload_section');
+    const searchSection = document.getElementById('search_section');
+
+    if (section === 'upload') {
+        uploadSection.style.display = 'flex';
+        searchSection.style.display = 'none';
+    } else if (section === 'search') {
+        uploadSection.style.display = 'none';
+        searchSection.style.display = 'flex';
     }
 }

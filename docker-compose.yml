@@ -46,9 +46,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
-    container_name: projectsw-frontend
-    restart: always
+    restart: unless-stopped
     ports:
       - "80:80"
     depends_on:

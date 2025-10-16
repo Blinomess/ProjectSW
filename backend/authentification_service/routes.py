@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
 from database import SessionLocal
 import models, utils
@@ -49,7 +49,11 @@ def login(user: UserModel, db: Session = Depends(get_db)):
     return {"message": "Login successful", "session_id": session_id}
 
 @router.post("/logout")
-def logout(session_id: str, db: Session = Depends(get_db)):
+def logout(data: dict = Body(...), db: Session = Depends(get_db)):
+    session_id = data.get("session_id")
+    if not session_id:
+        raise HTTPException(status_code=400, detail="Missing session_id")
+
     session = db.query(models.Session).filter_by(session_token=session_id).first()
     if session:
         db.delete(session)
