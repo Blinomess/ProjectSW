@@ -12,7 +12,7 @@ async function register() {
         body: JSON.stringify({username, password})
     });
     const data = await res.json();
-    console.log(data);
+    alert(`Создан пользователь: ${data.username}`);
 }
 
 async function login() {

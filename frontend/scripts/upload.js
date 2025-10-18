@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     const searchInput = document.getElementById('fileSearchInput');
     function debounce(fn, delay) {
-    let timer;
-    return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
+        let timer;
+        return function(...args) {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn.apply(this, args), delay);
+        };
     }
 
     if (searchInput) {
@@ -70,11 +70,60 @@ async function getCsvPreview(filename) {
         console.error('Ошибка при получении preview CSV:', error);
         return { 
             preview: 'Не удалось загрузить preview', 
-            columns: 0, 
-            sums: [], 
-            averages: [], 
-            max_values: [] 
+            columns_total: 0, 
+            analysis: [] 
         };
+    }
+}
+
+async function performCsvAnalysis(filename, columns, resultsDiv) {
+    try {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = '<div class="loading">Загрузка анализа...</div>';
+        
+        const url = columns ? 
+            `/api/processing/analyze/${filename}?columns=${encodeURIComponent(columns)}` : 
+            `/api/processing/analyze/${filename}`;
+            
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Ошибка ${response.status}`);
+        
+        const data = await response.json();
+        
+        // Отображаем результаты анализа
+        resultsDiv.innerHTML = `
+            <div class="analysis-summary">
+                <h4>Результаты анализа</h4>
+                <p><strong>Файл:</strong> ${data.filename}</p>
+                <p><strong>Всего столбцов:</strong> ${data.columns_total}</p>
+                <p><strong>Выбранные столбцы:</strong> ${data.columns_selected}</p>
+            </div>
+            
+            <div class="analysis-details">
+                <h4>Статистика по столбцам:</h4>
+                <div class="analysis-table">
+                    ${data.analysis.map(col => `
+                        <div class="analysis-row">
+                            <div class="column-name"><strong>${col.column}</strong></div>
+                            <div class="column-stats">
+                                <span>Сумма: ${col.sum}</span>
+                                <span>Среднее: ${col.average}</span>
+                                <span>Наибольшее значение: ${col.max}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+    } catch (error) {
+        console.error('Ошибка при анализе CSV:', error);
+        resultsDiv.innerHTML = `
+            <div class="error">
+                <h4>Ошибка анализа</h4>
+                <p>Не удалось проанализировать файл: ${error.message}</p>
+            </div>
+        `;
     }
 }
 
@@ -93,6 +142,7 @@ async function updateFileList(searchQuery = '') {
         filteredFiles.forEach(file => {
             const div = document.createElement('div');
             div.classList.add('file-item');
+            div.setAttribute('data-filename', file.filename);
             div.style.border = '1px solid #ccc';
             div.style.padding = '10px';
             div.style.margin = '10px';
@@ -107,43 +157,43 @@ async function updateFileList(searchQuery = '') {
             div.style.minHeight='300px';
             div.style.width='300px';
 
-
+            const div_info =document.createElement('div');
+            div_info.classList.add('card-info');
             const info = document.createElement('p');
+            const info1 = document.createElement('p');
+            const info2 = document.createElement('p');
             const descrptnShow = file.description?.trim() || "Нет";
-            info.textContent = `Имя: ${file.title}, Тип: ${file.filetype}, Описание: ${descrptnShow}`;
-            info.style.fontWeight = 'bold';
-            div.appendChild(info);
+            info.textContent = `Имя: ${file.title}`;
+            info1.textContent = `Тип: ${file.filetype}`;
+            info2.textContent = `Описание: ${descrptnShow}`;
+            div_info.append(info, info1, info2);
+            div.appendChild(div_info);
 
             if (file.filetype === 'csv') {
                 const previewContainer = document.createElement('div');
-                previewContainer.style.marginTop = '10px';
+                previewContainer.classList.add('csv_preview')
                 previewContainer.style.maxWidth = '100%';
-
-                const previewTitle = document.createElement('p');
-                previewTitle.textContent = 'Первые строки и статистика:';
-                previewTitle.style.fontWeight = 'bold';
-                previewContainer.appendChild(previewTitle);
 
                 const previewContent = document.createElement('pre');
                 previewContent.style.background = '#000000ff';
                 previewContent.style.padding = '10px';
                 previewContent.style.borderRadius = '5px';
-                previewContent.style.overflowX = 'auto';
+                previewContent.style.margin = '0';
+
                 previewContainer.appendChild(previewContent);
 
                 const statsContainer = document.createElement('div');
-                statsContainer.style.marginTop = '10px';
                 previewContainer.appendChild(statsContainer);
-
+                
                 div.appendChild(previewContainer);
 
                 getCsvPreview(file.filename).then(data => {
                     previewContent.textContent = data.preview;
                     statsContainer.innerHTML = `
-                        <p><b>Количество столбцов:</b> ${data.columns}</p>
-                        <p><b>Суммы по столбцам:</b> ${(data.sums || []).join(', ')}</p>
-                        <p><b>Средние по столбцам:</b> ${data.averages.map(a => a.toFixed(2)).join(', ')}</p>
-                        <p><b>Максимальные значения по столбцам:</b> ${(data.max_values || []).join(', ')}</p>
+                        <div class="csv_context">
+                            <p>Количество столбцов: ${data.columns_total}</p>
+                        </div>
+
                     `;
                 });
             }
@@ -151,9 +201,9 @@ async function updateFileList(searchQuery = '') {
             if (file.filetype === 'photo') {
                 const div_img= document.createElement('div');
                 div_img.classList.add('div_img');
-                div_img.style.maxHeight='300px';
+                div_img.style.maxHeight='80%';
                 div_img.style.overflow='auto';
-                div_img.style.margin='10px 0';
+                div_img.style.margin='20px 0';
                 const img = document.createElement('img');
                 img.src = `/api/data/download/${file.filename}`;
                 img.alt = file.filename;
@@ -225,3 +275,97 @@ function showSection(section) {
         searchSection.style.display = 'flex';
     }
 }
+
+document.addEventListener('click', function (e) {
+
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        return;
+    }
+
+    const card = e.target.closest('.file-item');
+    if (!card) return;
+
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+
+    const modal = document.createElement('div');
+    modal.classList.add('modal-card');
+    
+    const fileInfo = card.querySelector('.card-info');
+    const fileName = fileInfo.querySelector('p:first-child').textContent.replace('Имя: ', '');
+    const fileType = fileInfo.querySelector('p:nth-child(2)').textContent.replace('Тип: ', '');
+    const fileDescription = fileInfo.querySelector('p:nth-child(3)').textContent.replace('Описание: ', '');
+    const actualFilename = card.getAttribute('data-filename');
+    
+    modal.innerHTML = `
+        <div class="card-info">
+            <p>Имя: ${fileName}</p>
+            <p>Тип: ${fileType}</p>
+            <p>Описание: ${fileDescription}</p>
+        </div>
+        
+    `;
+
+    if (fileType === 'photo' && actualFilename) {
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('modal-image-container');
+        imgContainer.innerHTML = `
+            <img src="/api/data/download/${actualFilename}" alt="${fileName}" style="max-width: 100%; height: auto; display: block; margin: 15px auto;">
+        `;
+        modal.appendChild(imgContainer);
+    }
+
+    if (fileType === 'csv' && actualFilename) {
+        const previewContainer = document.createElement('div');
+        previewContainer.classList.add('csv-preview-container');
+        previewContainer.innerHTML = `
+            <div class="preview-section">
+                <h4>Предварительный просмотр:</h4>
+                <pre class="csv-preview" id="csvPreviewContent">Загрузка...</pre>
+            </div>
+        `;
+        modal.appendChild(previewContainer);
+        getCsvPreview(actualFilename).then(data => {
+            const previewElement = modal.querySelector('#csvPreviewContent');
+            if (previewElement) {
+                previewElement.textContent = data.preview;
+            }
+        });
+
+        // Добавляем блок анализа
+        const csvAnalysisContainer = document.createElement('div');
+        csvAnalysisContainer.classList.add('csv-analysis-container');
+        csvAnalysisContainer.innerHTML = `
+            <div class="analysis-controls">
+                <h3>Анализ CSV файла</h3>
+                <div class="column-selection">
+                    <label for="columnInput">Выберите столбцы для анализа (номера через запятую, начиная с 1):</label>
+                    <input type="text" id="columnInput" placeholder="Например: 1,3,5 или оставьте пустым для всех столбцов">
+                    <button id="analyzeBtn" class="analyze-btn">Анализировать</button>
+                </div>
+                <div id="analysisResults" class="analysis-results" style="display: none;"></div>
+            </div>
+        `;
+        modal.appendChild(csvAnalysisContainer);
+        
+        // Добавляем обработчик для кнопки анализа
+        const analyzeBtn = modal.querySelector('#analyzeBtn');
+        const columnInput = modal.querySelector('#columnInput');
+        const resultsDiv = modal.querySelector('#analysisResults');
+        
+        analyzeBtn.addEventListener('click', async () => {
+            const columns = columnInput.value.trim();
+            await performCsvAnalysis(actualFilename, columns, resultsDiv);
+        });
+    }
+
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '×';
+    closeBtn.classList.add('close-btn');
+    closeBtn.style.background='none';
+    closeBtn.addEventListener('click', () => overlay.remove());
+    modal.appendChild(closeBtn);
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+});
