@@ -14,7 +14,7 @@ router = APIRouter()
 
 STORAGE_DIR = "storage"
 
-MAX_FILE_SIZE = 1024 * 1024 * 1024
+MAX_FILE_SIZE = 1024 * 1024 * 1024* 2
 
 def get_db():
     db = SessionLocal()

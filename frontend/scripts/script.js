@@ -28,19 +28,24 @@ async function login() {
         body: JSON.stringify({username, password})
     });
     const data = await res.json();
-    console.log(data);
-    if(data.session_id){
-        localStorage.setItem('session_id', data.session_id);
+    if (res.ok && data.access_token) {
+        localStorage.setItem('access_token', data.access_token);
         window.location.href = 'upload.html';
+    } else {
+        alert(data.detail || 'Ошибка входа');
     }
 }
 
 async function checkSession() {
-    const sessionId = localStorage.getItem('session_id');
-    if (!sessionId) return false;
+    const token = localStorage.getItem('access_token');
+    if (!token) return false;
     
     try {
-        const res = await fetch(`/api/auth/check-session?session_id=${sessionId}`);
+        const res = await fetch(`/api/auth/check-session`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         if (res.ok) {
             const data = await res.json();
             console.log('User ID:', data.user_id);
@@ -48,7 +53,7 @@ async function checkSession() {
         }
         else {
             console.log('Session invalid');
-            localStorage.removeItem('session_id');
+            localStorage.removeItem('access_token');
             return false;
         }
     } catch (error) {
@@ -58,18 +63,14 @@ async function checkSession() {
 }
 
 async function logout() {
-    const sessionId = localStorage.getItem('session_id');
-    if (sessionId) {
+    const token = localStorage.getItem('access_token');
+    if (token) {
         try {
-            await fetch(`/api/auth/logout`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({session_id: sessionId})
-            });
+            await fetch(`/api/auth/logout`, { method: 'POST' });
         } catch (error) {
             console.error('Logout error:', error);
         }
-        localStorage.removeItem('session_id');
+        localStorage.removeItem('access_token');
     }
     window.location.href = 'index.html';
 }

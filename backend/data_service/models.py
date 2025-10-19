@@ -6,7 +6,6 @@ class FileMetadata(Base):
     id = Column(Integer, primary_key=True, index=True)
     filename = Column(String, unique=True, index=True)
     filetype = Column(String)
-    result_summary = Column(JSON, nullable=True)
     title = Column(String, nullable=True)
     description = Column(Text, nullable=True)
 

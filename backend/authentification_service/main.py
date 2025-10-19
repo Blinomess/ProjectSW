@@ -4,13 +4,6 @@ from routes import router
 from database import Base, engine, SessionLocal
 import models
 
-Base.metadata.create_all(bind=engine)
-
-#db = SessionLocal()
-#db.query(models.Session).delete()
-#db.commit()
-#db.close()
-
 app = FastAPI()
 
 origins = [
@@ -26,4 +19,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
+    except Exception as e:
+        print(f"Error creating database tables: {e}")
+
 app.include_router(router, prefix="", tags=["auth"])
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "auth-service"}

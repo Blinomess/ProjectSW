@@ -6,7 +6,6 @@ def create_file_metadata(db: Session, file_metadata: schemas.FileMetadataCreate)
     db_file = models.FileMetadata(
         filename=file_metadata.filename,
         filetype=file_metadata.filetype,
-        result_summary=file_metadata.result_summary,
         title=file_metadata.title,
         description=file_metadata.description
     )

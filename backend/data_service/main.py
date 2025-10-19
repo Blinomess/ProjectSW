@@ -13,3 +13,7 @@ app.add_middleware(
 )
 
 app.include_router(router, prefix="", tags=["data"])
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "data-service"}

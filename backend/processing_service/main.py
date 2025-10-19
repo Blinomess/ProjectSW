@@ -88,3 +88,7 @@ def analyze_file(filename: str, columns: str = Query(None, description="Номе
             "preview": "\n".join(preview_lines),
             "analysis": results
         }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "processing-service"}

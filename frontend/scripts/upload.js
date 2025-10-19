@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const main = document.querySelector('main');
 
     if (main) {
-        main.style.display = 'block';
+        main.classList.add('section-visible');
     }
 
     await updateFileList();
@@ -78,7 +78,7 @@ async function getCsvPreview(filename) {
 
 async function performCsvAnalysis(filename, columns, resultsDiv) {
     try {
-        resultsDiv.style.display = 'block';
+        resultsDiv.classList.add('analysis-results-visible');
         resultsDiv.innerHTML = '<div class="loading">Загрузка анализа...</div>';
         
         const url = columns ? 
@@ -141,21 +141,8 @@ async function updateFileList(searchQuery = '') {
 
         filteredFiles.forEach(file => {
             const div = document.createElement('div');
-            div.classList.add('file-item');
+            div.classList.add('file-item', 'file-item-card');
             div.setAttribute('data-filename', file.filename);
-            div.style.border = '1px solid #ccc';
-            div.style.padding = '10px';
-            div.style.margin = '10px';
-            div.style.borderRadius = '8px';
-            div.style.background = '#1e1e1e';
-            div.style.boxSizing = 'border-box';
-            div.style.display = 'flex';
-            div.style.flexDirection = 'column';
-            div.style.justifyContent = 'space-between';
-            div.style.alignItems='center';
-            div.style.height='450px';
-            div.style.minHeight='300px';
-            div.style.width='300px';
 
             const div_info =document.createElement('div');
             div_info.classList.add('card-info');
@@ -171,14 +158,10 @@ async function updateFileList(searchQuery = '') {
 
             if (file.filetype === 'csv') {
                 const previewContainer = document.createElement('div');
-                previewContainer.classList.add('csv_preview')
-                previewContainer.style.maxWidth = '100%';
+                previewContainer.classList.add('csv_preview', 'csv-preview-wrapper');
 
                 const previewContent = document.createElement('pre');
-                previewContent.style.background = '#000000ff';
-                previewContent.style.padding = '10px';
-                previewContent.style.borderRadius = '5px';
-                previewContent.style.margin = '0';
+                previewContent.classList.add('csv-preview-content');
 
                 previewContainer.appendChild(previewContent);
 
@@ -189,21 +172,12 @@ async function updateFileList(searchQuery = '') {
 
                 getCsvPreview(file.filename).then(data => {
                     previewContent.textContent = data.preview;
-                    statsContainer.innerHTML = `
-                        <div class="csv_context">
-                            <p>Количество столбцов: ${data.columns_total}</p>
-                        </div>
-
-                    `;
                 });
             }
 
             if (file.filetype === 'photo') {
                 const div_img= document.createElement('div');
-                div_img.classList.add('div_img');
-                div_img.style.maxHeight='80%';
-                div_img.style.overflow='auto';
-                div_img.style.margin='20px 0';
+                div_img.classList.add('div_img', 'image-container');
                 const img = document.createElement('img');
                 img.src = `/api/data/download/${file.filename}`;
                 img.alt = file.filename;
@@ -268,11 +242,15 @@ function showSection(section) {
     const searchSection = document.getElementById('search_section');
 
     if (section === 'upload') {
-        uploadSection.style.display = 'flex';
-        searchSection.style.display = 'none';
+        uploadSection.classList.remove('section-hidden');
+        uploadSection.classList.add('section-visible');
+        searchSection.classList.remove('section-visible');
+        searchSection.classList.add('section-hidden');
     } else if (section === 'search') {
-        uploadSection.style.display = 'none';
-        searchSection.style.display = 'flex';
+        uploadSection.classList.remove('section-visible');
+        uploadSection.classList.add('section-hidden');
+        searchSection.classList.remove('section-hidden');
+        searchSection.classList.add('section-visible');
     }
 }
 
@@ -332,7 +310,6 @@ document.addEventListener('click', function (e) {
             }
         });
 
-        // Добавляем блок анализа
         const csvAnalysisContainer = document.createElement('div');
         csvAnalysisContainer.classList.add('csv-analysis-container');
         csvAnalysisContainer.innerHTML = `
@@ -348,7 +325,6 @@ document.addEventListener('click', function (e) {
         `;
         modal.appendChild(csvAnalysisContainer);
         
-        // Добавляем обработчик для кнопки анализа
         const analyzeBtn = modal.querySelector('#analyzeBtn');
         const columnInput = modal.querySelector('#columnInput');
         const resultsDiv = modal.querySelector('#analysisResults');
@@ -362,7 +338,7 @@ document.addEventListener('click', function (e) {
     const closeBtn = document.createElement('button');
     closeBtn.textContent = '×';
     closeBtn.classList.add('close-btn');
-    closeBtn.style.background='none';
+    closeBtn.classList.add('modal-close-btn');
     closeBtn.addEventListener('click', () => overlay.remove());
     modal.appendChild(closeBtn);
 
