@@ -20,7 +20,7 @@ def get_db():
         db.close()
 
 @router.post("/register")
-def register(user: UserModel, db: Session = Depends(get_db)):
+async def register(user: UserModel, db: Session = Depends(get_db)):
 
     if db.query(models.User).filter_by(username=user.username).first():
         raise HTTPException(status_code=400, detail="User already exists")
@@ -36,7 +36,7 @@ def register(user: UserModel, db: Session = Depends(get_db)):
     return {"username": user.username}
 
 @router.post("/login")
-def login(user: UserModel, db: Session = Depends(get_db)):
+async def login(user: UserModel, db: Session = Depends(get_db)):
 
     db_user = db.query(models.User).filter_by(username=user.username).first()
     if not db_user or not utils.verify_password(user.password, db_user.password_hash):
@@ -55,11 +55,11 @@ def login(user: UserModel, db: Session = Depends(get_db)):
     return {"message": "Login successful", "access_token": token, "token_type": "Bearer", "expires_in": expires_in_seconds}
 
 @router.post("/logout")
-def logout():
+async def logout():
     return {"message": "Logged out"}
 
 @router.get("/check-session")
-def check_session(authorization: str | None = Header(default=None)):
+async def check_session(authorization: str | None = Header(default=None)):
     if not authorization or not authorization.lower().startswith("bearer "):
         raise HTTPException(status_code=401, detail="Missing or invalid Authorization header")
     token = authorization.split(" ", 1)[1]

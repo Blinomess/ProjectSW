@@ -9,12 +9,9 @@ import os
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
 router = APIRouter()
 
 STORAGE_DIR = "storage"
-
-MAX_FILE_SIZE = 1024 * 1024 * 1024* 2
 
 def get_db():
     db = SessionLocal()
@@ -22,13 +19,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-@app.middleware("http")
-async def limit_upload_size(request: Request, call_next):
-    content_length = request.headers.get('content-length')
-    if content_length and int(content_length) > MAX_FILE_SIZE:
-        return JSONResponse(content={"detail": "File too large"}, status_code=413)
-    return await call_next(request)
 
 @router.post("/upload")
 async def upload_data(

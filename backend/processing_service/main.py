@@ -15,7 +15,7 @@ app.add_middleware(
 STORAGE_DIR = "/app/storage"
 
 @app.get("/analyze/{filename}")
-def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
+async def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
     file_path = os.path.join(STORAGE_DIR, filename)
 
     if not os.path.exists(file_path):
