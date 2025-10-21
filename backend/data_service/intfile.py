@@ -5,7 +5,7 @@ import models
 import schemas
 import crud
 from database import engine, SessionLocal
-import os
+import os, csv
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -39,6 +39,13 @@ async def upload_data(
         description=description,
         filetype=filetype,
     )
+
+    if filetype == "csv":
+        with open(file_location, "r", encoding="utf-8", newline="") as csvfile:
+            reader = csv.reader(csvfile)
+            header = next(reader, None)
+            if header is None:
+                raise HTTPException(status_code=400, detail="Файл пустой")
 
     db_file = crud.create_file_metadata(db, metadata)
     return db_file

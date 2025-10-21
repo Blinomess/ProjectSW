@@ -28,6 +28,10 @@ async def analyze_file(filename: str, columns: str = Query(None, description="Н
         except ValueError:
             raise HTTPException(status_code=400, detail="Некорректный формат параметра columns")
 
+    for col in selected_columns:
+        if col < 0 or col >= len(header):
+            raise HTTPException(status_code=400, detail="Некорректный номер столбца")
+
     with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
         reader = csv.reader(csvfile)
         preview_lines = []
