@@ -92,6 +92,15 @@ class TestFileUpload:
         result = response.json()
         assert result["filename"] == "test.jpg"
         assert result["filetype"] == "photo"
+
+    def test_upload_empty_csv(self, client, setup_database, temp_storage):
+        """Загрузка пустого CSV файла"""
+        files = {"file": ("empty.csv", "", "text/csv")}
+        data = {"title": "Empty CSV", "description": "Empty CSV description"}
+        
+        response = client.post("/upload", files=files, data=data)
+        assert response.status_code == 400
+        assert "Файл пустой" in response.json()["detail"]
     
     def test_upload_without_file(self, client, setup_database):
         """Попытка загрузки без файла"""

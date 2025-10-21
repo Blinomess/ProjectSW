@@ -28,10 +28,6 @@ async def analyze_file(filename: str, columns: str = Query(None, description="Н
         except ValueError:
             raise HTTPException(status_code=400, detail="Некорректный формат параметра columns")
 
-    for col in selected_columns:
-        if col < 0 or col >= len(header):
-            raise HTTPException(status_code=400, detail="Некорректный номер столбца")
-
     with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
         reader = csv.reader(csvfile)
         preview_lines = []
@@ -41,6 +37,13 @@ async def analyze_file(filename: str, columns: str = Query(None, description="Н
             raise HTTPException(status_code=400, detail="Файл пустой")
 
         col_count = len(header)
+        
+        # Проверяем корректность номеров столбцов после чтения заголовка
+        if selected_columns:
+            for col in selected_columns:
+                if col < 0 or col >= col_count:
+                    raise HTTPException(status_code=400, detail="Некорректный номер столбца")
+        
         numeric_sums = [0.0] * col_count
         numeric_counts = [0] * col_count
         numeric_max = [float("-inf")] * col_count

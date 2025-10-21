@@ -199,6 +199,20 @@ class TestCSVPreview:
 
 class TestErrorHandling:
     """Тесты обработки ошибок"""
+
+    def test_analyze_empty_csv(self, client, temp_storage):
+        """Анализ пустого CSV файла"""
+        filename = "empty.csv"
+        filepath = os.path.join(temp_storage, filename)
+        
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write("")
+        
+        with patch('main.STORAGE_DIR', temp_storage):
+            response = client.get(f"/analyze/{filename}")
+            
+        assert response.status_code == 400
+        assert "Файл пустой" in response.json()["detail"]
     
     def test_analyze_corrupted_csv(self, client, temp_storage):
         """Анализ поврежденного CSV файла"""

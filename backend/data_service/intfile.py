@@ -7,7 +7,8 @@ import crud
 from database import engine, SessionLocal
 import os, csv
 
-models.Base.metadata.create_all(bind=engine)
+# Убираем создание таблиц при импорте - это будет делаться в main.py
+# models.Base.metadata.create_all(bind=engine)
 
 router = APIRouter()
 

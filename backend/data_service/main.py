@@ -4,8 +4,12 @@ from fastapi.middleware import Middleware
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from intfile import router
+import models
+from database import engine
 
 app = FastAPI(title="Data Service")
+
+models.Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
