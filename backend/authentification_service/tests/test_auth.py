@@ -1,10 +1,16 @@
 import pytest
 import asyncio
+import sys
+import os
+from pathlib import Path
+
+# Добавляем родительский каталог в путь для импорта
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from unittest.mock import patch
-import os
 
 from main import app
 from database import Base, get_db

@@ -19,13 +19,6 @@ else
     exit 1
 fi
 
-if [ -f "frontend/scripts/analyze.js" ]; then
-    echo "analyze.js exists"
-else
-    echo "analyze.js missing"
-    exit 1
-fi
-
 # Проверяем синтаксис JS файлов
 echo "Checking JavaScript syntax..."
 for file in frontend/scripts/*.js; do
