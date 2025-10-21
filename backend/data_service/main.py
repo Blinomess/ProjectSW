@@ -6,16 +6,19 @@ from fastapi.responses import JSONResponse
 from intfile import router
 import models
 from database import engine
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="Data Service")
-
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     try:
         models.Base.metadata.create_all(bind=engine)
         print("Database tables created successfully")
     except Exception as e:
         print(f"Error creating database tables: {e}")
+    yield
+    print("Application shutdown")
+
+app = FastAPI(title="Data Service", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -25,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MAX_FILE_SIZE = 1024 * 1024 * 1024 * 2  # 2GB
+MAX_FILE_SIZE = 1024 * 1024 * 1024 * 2
 
 @app.middleware("http")
 async def limit_upload_size(request: Request, call_next):

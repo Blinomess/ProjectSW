@@ -3,8 +3,21 @@ from fastapi import FastAPI
 from routes import router
 from database import Base, engine, SessionLocal
 import models
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
+    except Exception as e:
+        print(f"Error creating database tables: {e}")
+    yield
+    # Shutdown
+    print("Application shutdown")
+
+app = FastAPI(lifespan=lifespan)
 
 origins = [
     "http://localhost",
@@ -18,14 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-async def startup_event():
-    try:
-        Base.metadata.create_all(bind=engine)
-        print("Database tables created successfully")
-    except Exception as e:
-        print(f"Error creating database tables: {e}")
 
 app.include_router(router, prefix="", tags=["auth"])
 
