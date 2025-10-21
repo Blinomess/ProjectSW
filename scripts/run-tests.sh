@@ -158,47 +158,6 @@ build_docker_images() {
     success "Docker образы собраны"
 }
 
-generate_reports() {
-    log "Генерация отчетов..."
-  
-    mkdir -p reports
-    
-    cp backend/authentification_service/htmlcov/* reports/auth-coverage/ 2>/dev/null || true
-    cp backend/data_service/htmlcov/* reports/data-coverage/ 2>/dev/null || true
-    cp backend/processing_service/htmlcov/* reports/processing-coverage/ 2>/dev/null || true
-    
-    cp trivy-results.json reports/ 2>/dev/null || true
-    cp trivy-images.json reports/ 2>/dev/null || true
-    cp bandit-report.json reports/ 2>/dev/null || true
-    cp safety-report.json reports/ 2>/dev/null || true
-    
-    cat > reports/summary.md << EOF
-# Отчет о тестировании File Manager
-
-## Дата выполнения
-$(date)
-
-## Результаты тестов
-- Backend unit тесты: Пройдены
-- Frontend тесты: Пройдены  
-- Интеграционные тесты: Пройдены
-- Security сканирование: Завершено
-
-## Покрытие кода
-- auth-service: $(find backend/authentification_service -name "coverage.xml" -exec grep -o 'line-rate="[^"]*"' {} \; | cut -d'"' -f2 || echo "N/A")
-- data-service: $(find backend/data_service -name "coverage.xml" -exec grep -o 'line-rate="[^"]*"' {} \; | cut -d'"' -f2 || echo "N/A")
-- processing-service: $(find backend/processing_service -name "coverage.xml" -exec grep -o 'line-rate="[^"]*"' {} \; | cut -d'"' -f2 || echo "N/A")
-
-## Security отчеты
-- Trivy FS: trivy-results.json
-- Trivy Images: trivy-images.json
-- Bandit: bandit-report.json
-- Safety: safety-report.json
-EOF
-    
-    success "Отчеты сгенерированы в директории reports/"
-}
-
 cleanup() {
     log "Очистка временных файлов..."
     
@@ -270,8 +229,6 @@ main() {
     else
         warning "Пропуск сборки Docker образов"
     fi
-    
-    generate_reports
     
     success "CI/CD pipeline успешно завершен! 🎉"
 }

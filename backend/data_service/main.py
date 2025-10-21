@@ -9,7 +9,13 @@ from database import engine
 
 app = FastAPI(title="Data Service")
 
-models.Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+async def startup_event():
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
+    except Exception as e:
+        print(f"Error creating database tables: {e}")
 
 app.add_middleware(
     CORSMiddleware,
