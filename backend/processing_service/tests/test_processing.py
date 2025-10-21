@@ -1,7 +1,6 @@
 import pytest
 import os
 import tempfile
-import pandas as pd
 import sys
 from pathlib import Path
 
