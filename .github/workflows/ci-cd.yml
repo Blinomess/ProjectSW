@@ -228,8 +228,8 @@ jobs:
     - name: Deploy to staging
       run: |
          echo "Deploying to staging environment..."
-         chmod +x scripts/deploy-minikube.sh
-         ./scripts/deploy-minikube.sh
+         chmod +x k8s/deploy.sh
+         cd k8s && ./deploy.sh
          echo "Staging deploy complete!"
 
 
@@ -245,8 +245,8 @@ jobs:
     - name: Deploy to production
       run: |
          echo "Deploying to production environment..."
-         chmod +x scripts/deploy-minikube.sh
-         ./scripts/deploy-minikube.sh
+         chmod +x k8s/deploy.sh
+         cd k8s && ./deploy.sh
          echo "Production deploy complete!"
 
 
