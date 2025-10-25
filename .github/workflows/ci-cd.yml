@@ -13,7 +13,21 @@ env:
 jobs:
 
   backend-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_USER: test_user
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     strategy:
       matrix:
@@ -35,41 +49,6 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('backend/${{ matrix.service }}/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - name: Install PostgreSQL on Windows
-      run: |
-        # Пробуем установить PostgreSQL через Chocolatey
-        try {
-          choco install postgresql -y
-          Write-Host "✅ PostgreSQL installed via Chocolatey"
-        } catch {
-          Write-Host "⚠️ Chocolatey failed, trying winget..."
-          winget install PostgreSQL.PostgreSQL
-          Write-Host "✅ PostgreSQL installed via winget"
-        }
-        
-        # Находим установленную версию PostgreSQL
-        $postgresPath = Get-ChildItem "C:\Program Files\PostgreSQL" | Select-Object -First 1
-        $postgresVersion = $postgresPath.Name
-        Write-Host "PostgreSQL version found: $postgresVersion"
-        
-        # Запускаем PostgreSQL службу
-        net start "postgresql-x64-$postgresVersion"
-        # Ждем запуска службы
-        Start-Sleep -Seconds 10
-
-    - name: Setup PostgreSQL database
-      run: |
-        # Находим установленную версию PostgreSQL
-        $postgresPath = Get-ChildItem "C:\Program Files\PostgreSQL" | Select-Object -First 1
-        $postgresVersion = $postgresPath.Name
-        $postgresBinPath = "C:\Program Files\PostgreSQL\$postgresVersion\bin"
-        
-        # Создаем базу данных для тестов
-        & "$postgresBinPath\createdb.exe" -U postgres test_db
-        # Создаем пользователя для тестов
-        & "$postgresBinPath\psql.exe" -U postgres -d test_db -c "CREATE USER test_user WITH PASSWORD 'test_password';"
-        & "$postgresBinPath\psql.exe" -U postgres -d test_db -c "GRANT ALL PRIVILEGES ON DATABASE test_db TO test_user;"
 
     - name: Install dependencies
       run: |
@@ -94,63 +73,60 @@ jobs:
 
 
   frontend-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
            
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Run frontend tests
-      shell: bash
       run: |
-        # Проверяем, что мы используем правильный shell
-        echo "Current shell: $SHELL"
-        echo "Current OS: $(uname -a)"
-        
-        # Проверяем существование файлов
-        if [ -f "frontend/index.html" ]; then echo "✅ index.html exists"; fi
-        if [ -f "frontend/upload.html" ]; then echo "✅ upload.html exists"; fi
-        if [ -f "frontend/scripts/script.js" ]; then echo "✅ script.js exists"; fi
-        if [ -f "frontend/scripts/upload.js" ]; then echo "✅ upload.js exists"; fi
-        if [ -f "frontend/scripts/analyze.js" ]; then echo "✅ analyze.js exists"; fi
-        if [ -f "frontend/styles/style.css" ]; then echo "✅ style.css exists"; fi
-        if [ -f "frontend/styles/uploadstyle.css" ]; then echo "✅ uploadstyle.css exists"; fi
-        echo "🎉 Frontend files check completed"
+        chmod +x frontend/test-frontend.sh
+        ./frontend/test-frontend.sh
 
 
   integration-tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [backend-tests, frontend-tests]
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Run integration tests
-      shell: bash
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build test images
       run: |
-        # Проверяем, что все сервисы доступны
-        echo "Running integration tests..."
-        
-        # Проверяем существование файлов
-        if [ -f "tests/integration/test_integration.py" ]; then 
-          echo "Integration test file exists" 
-        else
-          echo "Integration test file not found"
-        fi
-        
-        # Проверяем Docker Compose файл
-        if [ -f "docker-compose.test.yml" ]; then 
-          echo "Docker Compose test file exists" 
-        else
-          echo "Docker Compose test file not found"
-        fi
-        
-        echo "Integration tests check completed"
+        docker build -t auth-service-test ./backend/authentification_service
+        docker build -t data-service-test ./backend/data_service
+        docker build -t processing-service-test ./backend/processing_service
+        docker build -t frontend-test ./frontend
+
+    - name: Start services
+      run: docker compose -f docker-compose.test.yml up -d --build
+
+    - name: Wait for services
+      run: |
+        sleep 30
+        docker compose -f docker-compose.test.yml ps
+
+    - name: Run integration tests
+      run: |
+        cd tests/integration
+        python -m pytest test_integration.py -v
+
+    - name: Stop services
+      run: docker compose -f docker-compose.test.yml down
 
 
   security-scan:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [backend-tests]
 
     steps:
@@ -158,10 +134,8 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Basic security check
-      shell: bash
       run: |
         echo "Running basic security checks..."
-        
         # Проверка на хардкод паролей
         if grep -r "password.*=" backend/ --include="*.py" | grep -v "password_hash" | grep -v "test"; then
           echo "Found potential hardcoded passwords"
@@ -179,7 +153,7 @@ jobs:
 
 
   build-and-push:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [integration-tests, security-scan]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
@@ -187,23 +161,32 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Build Docker images locally
-      shell: bash
-      run: |
-        echo "Building Docker images via Git Bash..."
-        
-        # Проверяем Docker
-        docker --version
-        
-        # Делаем скрипт исполняемым и запускаем
-        chmod +x k8s/build-images-gitbash.sh
-        ./k8s/build-images-gitbash.sh
-        
-        echo "Docker images built successfully!"
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/auth-service:${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/data-service:${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/processing-service:${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
 
   deploy-staging:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [build-and-push]
     if: github.ref == 'refs/heads/develop'
     environment: staging
@@ -212,16 +195,15 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Deploy to staging
-      shell: bash
       run: |
-         echo "Deploying to staging environment via Git Bash..."
-         chmod +x k8s/deploy-gitbash.sh
-         ./k8s/deploy-gitbash.sh
+         echo "Deploying to staging environment..."
+         chmod +x scripts/deploy-minikube.sh
+         ./scripts/deploy-minikube.sh
          echo "Staging deploy complete!"
 
 
   deploy-production:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [build-and-push]
     if: github.ref == 'refs/heads/main'
     environment: production
@@ -230,16 +212,15 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Deploy to production
-      shell: bash
       run: |
-         echo "Deploying to production environment via Git Bash..."
-         chmod +x k8s/deploy-gitbash.sh
-         ./k8s/deploy-gitbash.sh
+         echo "Deploying to production environment..."
+         chmod +x scripts/deploy-minikube.sh
+         ./scripts/deploy-minikube.sh
          echo "Production deploy complete!"
 
 
   notify:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [deploy-staging, deploy-production]
     if: always()
     continue-on-error: true
