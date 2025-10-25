@@ -13,7 +13,8 @@ from sqlalchemy.orm import sessionmaker
 from unittest.mock import patch
 
 from main import app
-from database import Base, get_db
+from database import Base
+
 from models import User
 import utils
 
@@ -24,6 +25,17 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 # Переопределяем engine для тестов
 import database
 database.engine = engine
+
+# Переопределяем engine в main тоже
+import main
+main.engine = engine
+
+# Переопределяем engine в routes тоже
+import routes
+routes.SessionLocal = TestingSessionLocal
+
+# Импортируем get_db после переопределения engine
+from database import get_db
 
 def override_get_db():
     try:

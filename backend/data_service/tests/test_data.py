@@ -15,7 +15,7 @@ from unittest.mock import patch, mock_open
 import json
 
 from main import app
-from database import Base, get_db
+from database import Base
 from models import FileMetadata
 import crud
 import schemas
@@ -27,6 +27,18 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 # Переопределяем engine для тестов
 import database
 database.engine = engine
+
+# Переопределяем engine в main тоже
+import main
+main.engine = engine
+
+# Переопределяем engine в intfile тоже
+import intfile
+intfile.engine = engine
+intfile.SessionLocal = TestingSessionLocal
+
+# Импортируем get_db после переопределения engine
+from database import get_db
 
 def override_get_db():
     try:
