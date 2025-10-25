@@ -12,11 +12,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-STORAGE_DIR = "/app/storage"
+def get_storage_dir():
+    """Получает путь к папке storage из переменной окружения"""
+    return os.getenv("STORAGE_DIR", "/app/storage")
 
 @app.get("/analyze/{filename}")
-def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
-    file_path = os.path.join(STORAGE_DIR, filename)
+async def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
+    file_path = os.path.join(get_storage_dir(), filename)
 
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="Файл не найден")
@@ -37,6 +39,13 @@ def analyze_file(filename: str, columns: str = Query(None, description="Номе
             raise HTTPException(status_code=400, detail="Файл пустой")
 
         col_count = len(header)
+        
+        # Проверяем корректность номеров столбцов после чтения заголовка
+        if selected_columns:
+            for col in selected_columns:
+                if col < 0 or col >= col_count:
+                    raise HTTPException(status_code=400, detail="Некорректный номер столбца")
+        
         numeric_sums = [0.0] * col_count
         numeric_counts = [0] * col_count
         numeric_max = [float("-inf")] * col_count

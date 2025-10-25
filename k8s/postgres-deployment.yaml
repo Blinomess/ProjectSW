@@ -63,7 +63,6 @@ spec:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc
-
 ---
 apiVersion: v1
 kind: Service

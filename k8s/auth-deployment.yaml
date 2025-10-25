@@ -18,7 +18,7 @@ spec:
       containers:
       - name: auth-service
         image: auth-service:latest
-        imagePullPolicy: Never  # Для локальных образов в Minikube
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
         env:
@@ -46,7 +46,6 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "200m"
-
 ---
 apiVersion: v1
 kind: Service

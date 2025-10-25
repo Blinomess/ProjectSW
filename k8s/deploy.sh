@@ -3,41 +3,41 @@
 # Скрипт для развертывания приложения в Minikube
 
 echo "Создание namespace..."
-kubectl apply -f namespace.yaml
+kubectl apply -f k8s/namespace.yaml
 
 echo "Создание ConfigMaps и Secrets..."
-kubectl apply -f configmap.yaml
-kubectl apply -f secret.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/secret.yaml
 
 echo "Создание PersistentVolumes и StorageClass..."
-kubectl apply -f persistent-volume.yaml
+kubectl apply -f k8s/persistent-volume.yaml
 
 echo "Создание PersistentVolumeClaims..."
-kubectl apply -f persistent-volume-claim.yaml
+kubectl apply -f k8s/persistent-volume-claim.yaml
 
 echo "Развертывание PostgreSQL..."
-kubectl apply -f postgres-deployment.yaml
+kubectl apply -f k8s/postgres-deployment.yaml
 
 echo "Ожидание готовности PostgreSQL..."
 kubectl wait --for=condition=available --timeout=300s deployment/postgres -n project-sw
 
 echo "Развертывание сервиса аутентификации..."
-kubectl apply -f auth-deployment.yaml
+kubectl apply -f k8s/auth-deployment.yaml
 
 echo "Развертывание сервиса данных..."
-kubectl apply -f data-deployment.yaml
+kubectl apply -f k8s/data-deployment.yaml
 
 echo "Развертывание сервиса обработки..."
-kubectl apply -f processing-deployment.yaml
+kubectl apply -f k8s/processing-deployment.yaml
 
 echo "Создание nginx ConfigMap..."
-kubectl apply -f nginx-configmap.yaml
+kubectl apply -f k8s/nginx-configmap.yaml
 
 echo "Развертывание фронтенда..."
-kubectl apply -f frontend-deployment.yaml
+kubectl apply -f k8s/frontend-deployment.yaml
 
 echo "Создание Ingress..."
-kubectl apply -f ingress.yaml
+kubectl apply -f k8s/ingress.yaml
 
 echo "Ожидание готовности всех сервисов..."
 kubectl wait --for=condition=available --timeout=300s deployment/auth-service -n project-sw

@@ -18,7 +18,7 @@ spec:
       containers:
       - name: processing-service
         image: processing-service:latest
-        imagePullPolicy: Never  # Для локальных образов в Minikube
+        imagePullPolicy: Never
         ports:
         - containerPort: 8002
         volumeMounts:
@@ -47,7 +47,6 @@ spec:
       - name: storage-volume
         persistentVolumeClaim:
           claimName: storage-pvc
-
 ---
 apiVersion: v1
 kind: Service

@@ -1,28 +1,20 @@
 #!/bin/bash
 
-# Скрипт для сборки Docker образов для Minikube
+# Скрипт для сборки Docker образов для Kubernetes
 
-echo "Запуск Minikube..."
-minikube start
+echo "Сборка Docker образов для Kubernetes..."
 
-echo "Настройка Docker окружения для Minikube..."
-eval $(minikube docker-env)
-
-echo "Сборка образа для сервиса аутентификации..."
+echo "Сборка auth-service..."
 docker build -t auth-service:latest ./backend/authentification_service/
 
-echo "Сборка образа для сервиса данных..."
+echo "Сборка data-service..."
 docker build -t data-service:latest ./backend/data_service/
 
-echo "Сборка образа для сервиса обработки..."
+echo "Сборка processing-service..."
 docker build -t processing-service:latest ./backend/processing_service/
 
-echo "Сборка образа для фронтенда..."
+echo "Сборка frontend..."
 docker build -t frontend:latest ./frontend/
 
-echo "Создание директорий для PersistentVolumes..."
-minikube ssh "sudo mkdir -p /data/postgres /data/storage"
-minikube ssh "sudo chmod 777 /data/postgres /data/storage"
-
 echo "Все образы собраны успешно!"
-echo "Теперь можно запустить: ./k8s/deploy.sh"
+

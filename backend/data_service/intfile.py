@@ -5,16 +5,13 @@ import models
 import schemas
 import crud
 from database import engine, SessionLocal
-import os
+import os, csv
 
-models.Base.metadata.create_all(bind=engine)
-
-app = FastAPI()
 router = APIRouter()
 
-STORAGE_DIR = "storage"
-
-MAX_FILE_SIZE = 1024 * 1024 * 1024* 2
+def get_storage_dir():
+    """Получает путь к папке storage из переменной окружения"""
+    return os.getenv("STORAGE_DIR", "storage")
 
 def get_db():
     db = SessionLocal()
@@ -23,13 +20,6 @@ def get_db():
     finally:
         db.close()
 
-@app.middleware("http")
-async def limit_upload_size(request: Request, call_next):
-    content_length = request.headers.get('content-length')
-    if content_length and int(content_length) > MAX_FILE_SIZE:
-        return JSONResponse(content={"detail": "File too large"}, status_code=413)
-    return await call_next(request)
-
 @router.post("/upload")
 async def upload_data(
     file: UploadFile = File(...),
@@ -37,12 +27,18 @@ async def upload_data(
     description: str = Form(None),
     db: Session = Depends(get_db)
 ):
-    file_location = os.path.join(STORAGE_DIR, file.filename)
+    os.makedirs(get_storage_dir(), exist_ok=True)
+    
+    file_location = os.path.join(get_storage_dir(), file.filename)
     with open(file_location, "wb") as f:
         f.write(await file.read())
 
     filetype = "photo" if file.filename.endswith(".jpeg") or file.filename.endswith(".png") or file.filename.endswith(".jpg") else "csv" if file.filename.endswith(".csv") else "other"
 
+    # Если title не указан, используем имя файла
+    if title is None:
+        title = file.filename
+    
     metadata = schemas.FileMetadataCreate(
         filename=file.filename,
         title=title,
@@ -50,12 +46,19 @@ async def upload_data(
         filetype=filetype,
     )
 
+    if filetype == "csv":
+        with open(file_location, "r", encoding="utf-8", newline="") as csvfile:
+            reader = csv.reader(csvfile)
+            header = next(reader, None)
+            if header is None:
+                raise HTTPException(status_code=400, detail="Файл пустой")
+
     db_file = crud.create_file_metadata(db, metadata)
     return db_file
 
 @router.get("/download/{filename}")
 async def download_data(filename: str):
-    file_path = os.path.join(STORAGE_DIR, filename)
+    file_path = os.path.join(get_storage_dir(), filename)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="Файл не найден")
     
@@ -67,7 +70,7 @@ async def list_files(db: Session = Depends(get_db)):
 
 @router.delete("/files/{filename}")
 async def delete_file(filename: str, db: Session = Depends(get_db)):
-    file_path = os.path.join(STORAGE_DIR, filename)
+    file_path = os.path.join(get_storage_dir(), filename)
     if os.path.exists(file_path):
         os.remove(file_path)
 

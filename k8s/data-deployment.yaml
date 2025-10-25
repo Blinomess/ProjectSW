@@ -18,7 +18,7 @@ spec:
       containers:
       - name: data-service
         image: data-service:latest
-        imagePullPolicy: Never  # Для локальных образов в Minikube
+        imagePullPolicy: Never
         ports:
         - containerPort: 8001
         env:
@@ -53,7 +53,6 @@ spec:
       - name: storage-volume
         persistentVolumeClaim:
           claimName: storage-pvc
-
 ---
 apiVersion: v1
 kind: Service

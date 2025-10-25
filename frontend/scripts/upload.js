@@ -90,7 +90,6 @@ async function performCsvAnalysis(filename, columns, resultsDiv) {
         
         const data = await response.json();
         
-        // Отображаем результаты анализа
         resultsDiv.innerHTML = `
             <div class="analysis-summary">
                 <h4>Результаты анализа</h4>
@@ -139,7 +138,7 @@ async function updateFileList(searchQuery = '') {
             f.filename.toLowerCase().includes(searchQuery)
         );
 
-        filteredFiles.forEach(file => {
+        for (const file of filteredFiles) {
             const div = document.createElement('div');
             div.classList.add('file-item', 'file-item-card');
             div.setAttribute('data-filename', file.filename);
@@ -170,9 +169,12 @@ async function updateFileList(searchQuery = '') {
                 
                 div.appendChild(previewContainer);
 
-                getCsvPreview(file.filename).then(data => {
+                try {
+                    const data = await getCsvPreview(file.filename);
                     previewContent.textContent = data.preview;
-                });
+                } catch (error) {
+                    previewContent.textContent = 'Ошибка загрузки preview';
+                }
             }
 
             if (file.filetype === 'photo') {
@@ -208,7 +210,7 @@ async function updateFileList(searchQuery = '') {
                 const res = await fetch(`/api/data/files/${file.filename}`, { method: 'DELETE' });
                 if (res.ok) {
                     alert(`${file.filename} удалён`);
-                    updateFileList(searchQuery);
+                    await updateFileList(searchQuery);
                 } else {
                     const errorData = await res.json();
                     alert(`Ошибка: ${errorData.detail}`);
@@ -224,7 +226,7 @@ async function updateFileList(searchQuery = '') {
             div.appendChild(buttonsContainer);
 
             fileList.appendChild(div);
-        });
+        }
 
         if (filteredFiles.length === 0) {
             fileList.textContent = 'Файлы не найдены';
@@ -254,7 +256,7 @@ function showSection(section) {
     }
 }
 
-document.addEventListener('click', function (e) {
+document.addEventListener('click', async function (e) {
 
     if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
         return;
@@ -303,12 +305,19 @@ document.addEventListener('click', function (e) {
             </div>
         `;
         modal.appendChild(previewContainer);
-        getCsvPreview(actualFilename).then(data => {
+        
+        try {
+            const data = await getCsvPreview(actualFilename);
             const previewElement = modal.querySelector('#csvPreviewContent');
             if (previewElement) {
                 previewElement.textContent = data.preview;
             }
-        });
+        } catch (error) {
+            const previewElement = modal.querySelector('#csvPreviewContent');
+            if (previewElement) {
+                previewElement.textContent = 'Ошибка загрузки preview';
+            }
+        }
 
         const csvAnalysisContainer = document.createElement('div');
         csvAnalysisContainer.classList.add('csv-analysis-container');
@@ -320,7 +329,7 @@ document.addEventListener('click', function (e) {
                     <input type="text" id="columnInput" placeholder="Например: 1,3,5 или оставьте пустым для всех столбцов">
                     <button id="analyzeBtn" class="analyze-btn">Анализировать</button>
                 </div>
-                <div id="analysisResults" class="analysis-results" style="display: none;"></div>
+                <div id="analysisResults" class="analysis-results section-hidden"></div>
             </div>
         `;
         modal.appendChild(csvAnalysisContainer);
@@ -330,6 +339,8 @@ document.addEventListener('click', function (e) {
         const resultsDiv = modal.querySelector('#analysisResults');
         
         analyzeBtn.addEventListener('click', async () => {
+            resultsDiv.classList.remove('section-hidden');
+            resultsDiv.classList.add('analysis-results-visible');
             const columns = columnInput.value.trim();
             await performCsvAnalysis(actualFilename, columns, resultsDiv);
         });
