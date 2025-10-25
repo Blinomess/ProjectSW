@@ -11,7 +11,7 @@ class TestIntegration:
     
     def setup_method(self):
         """Настройка перед каждым тестом"""
-        self.base_url = "http://localhost:8000"
+        self.base_url = "http://localhost"
         self.auth_url = f"{self.base_url}/api/auth"
         self.data_url = f"{self.base_url}/api/data"
         self.processing_url = f"{self.base_url}/api/processing"
@@ -31,6 +31,30 @@ class TestIntegration:
         Bob,35,70000,Paris
         Alice,28,55000,Berlin
         Charlie,32,65000,Tokyo"""
+        
+        # Ждем, пока сервисы запустятся
+        self.wait_for_services()
+    
+    def wait_for_services(self):
+        """Ждем, пока все сервисы запустятся"""
+        max_attempts = 30
+        attempt = 0
+        
+        while attempt < max_attempts:
+            try:
+                # Проверяем nginx
+                response = requests.get(f"{self.base_url}/health", timeout=5)
+                if response.status_code == 200:
+                    print(f"✅ Services are ready after {attempt + 1} attempts")
+                    return
+            except requests.exceptions.RequestException:
+                pass
+            
+            attempt += 1
+            time.sleep(2)
+            print(f"⏳ Waiting for services... attempt {attempt}/{max_attempts}")
+        
+        raise Exception("❌ Services did not start within 60 seconds")
     
     def teardown_method(self):
         """Очистка после каждого теста"""
