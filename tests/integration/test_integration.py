@@ -45,7 +45,7 @@ class TestIntegration:
                 # Проверяем nginx
                 response = requests.get(f"{self.base_url}/health", timeout=5)
                 if response.status_code == 200:
-                    print(f"✅ Services are ready after {attempt + 1} attempts")
+                    print(f"Services are ready after {attempt + 1} attempts")
                     return
             except requests.exceptions.RequestException:
                 pass
@@ -54,7 +54,7 @@ class TestIntegration:
             time.sleep(2)
             print(f"⏳ Waiting for services... attempt {attempt}/{max_attempts}")
         
-        raise Exception("❌ Services did not start within 60 seconds")
+        raise Exception("Services did not start within 60 seconds")
     
     def teardown_method(self):
         """Очистка после каждого теста"""
