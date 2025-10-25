@@ -4,7 +4,6 @@
 
 echo "Сборка Docker образов для Kubernetes..."
 
-# Сборка образов для каждого сервиса
 echo "Сборка auth-service..."
 docker build -t auth-service:latest ./backend/authentification_service/
 

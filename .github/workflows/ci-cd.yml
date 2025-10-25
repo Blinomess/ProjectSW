@@ -166,16 +166,14 @@ jobs:
     - name: Build Docker images locally
       shell: bash
       run: |
-        echo "Building Docker images locally..."
+        echo "Building Docker images via Git Bash..."
         
         # Проверяем Docker
         docker --version
         
-        # Собираем образы
-        docker build -t auth-service:latest ./backend/authentification_service
-        docker build -t data-service:latest ./backend/data_service
-        docker build -t processing-service:latest ./backend/processing_service
-        docker build -t frontend:latest ./frontend
+        # Делаем скрипт исполняемым и запускаем
+        chmod +x k8s/build-images-gitbash.sh
+        ./k8s/build-images-gitbash.sh
         
         echo "Docker images built successfully!"
 
@@ -192,9 +190,9 @@ jobs:
     - name: Deploy to staging
       shell: bash
       run: |
-         echo "Deploying to staging environment..."
-         chmod +x k8s/deploy-windows.sh
-         ./k8s/deploy-windows.sh
+         echo "Deploying to staging environment via Git Bash..."
+         chmod +x k8s/deploy-gitbash.sh
+         ./k8s/deploy-gitbash.sh
          echo "Staging deploy complete!"
 
 
@@ -210,9 +208,9 @@ jobs:
     - name: Deploy to production
       shell: bash
       run: |
-         echo "Deploying to production environment..."
-         chmod +x k8s/deploy-windows.sh
-         ./k8s/deploy-windows.sh
+         echo "Deploying to production environment via Git Bash..."
+         chmod +x k8s/deploy-gitbash.sh
+         ./k8s/deploy-gitbash.sh
          echo "Production deploy complete!"
 
 
