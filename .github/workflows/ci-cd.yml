@@ -38,18 +38,38 @@ jobs:
 
     - name: Install PostgreSQL on Windows
       run: |
-        # Устанавливаем PostgreSQL через Chocolatey
-        choco install postgresql --version=13.8 -y
+        # Пробуем установить PostgreSQL через Chocolatey
+        try {
+          choco install postgresql -y
+          Write-Host "✅ PostgreSQL installed via Chocolatey"
+        } catch {
+          Write-Host "⚠️ Chocolatey failed, trying winget..."
+          winget install PostgreSQL.PostgreSQL
+          Write-Host "✅ PostgreSQL installed via winget"
+        }
+        
+        # Находим установленную версию PostgreSQL
+        $postgresPath = Get-ChildItem "C:\Program Files\PostgreSQL" | Select-Object -First 1
+        $postgresVersion = $postgresPath.Name
+        Write-Host "PostgreSQL version found: $postgresVersion"
+        
         # Запускаем PostgreSQL службу
-        net start postgresql-x64-13
+        net start "postgresql-x64-$postgresVersion"
         # Ждем запуска службы
         Start-Sleep -Seconds 10
 
     - name: Setup PostgreSQL database
       run: |
-        & "C:\Program Files\PostgreSQL\13\bin\createdb.exe" -U postgres test_db
-        & "C:\Program Files\PostgreSQL\13\bin\psql.exe" -U postgres -d test_db -c "CREATE USER test_user WITH PASSWORD 'test_password';"
-        & "C:\Program Files\PostgreSQL\13\bin\psql.exe" -U postgres -d test_db -c "GRANT ALL PRIVILEGES ON DATABASE test_db TO test_user;"
+        # Находим установленную версию PostgreSQL
+        $postgresPath = Get-ChildItem "C:\Program Files\PostgreSQL" | Select-Object -First 1
+        $postgresVersion = $postgresPath.Name
+        $postgresBinPath = "C:\Program Files\PostgreSQL\$postgresVersion\bin"
+        
+        # Создаем базу данных для тестов
+        & "$postgresBinPath\createdb.exe" -U postgres test_db
+        # Создаем пользователя для тестов
+        & "$postgresBinPath\psql.exe" -U postgres -d test_db -c "CREATE USER test_user WITH PASSWORD 'test_password';"
+        & "$postgresBinPath\psql.exe" -U postgres -d test_db -c "GRANT ALL PRIVILEGES ON DATABASE test_db TO test_user;"
 
     - name: Install dependencies
       run: |
@@ -83,15 +103,19 @@ jobs:
     - name: Run frontend tests
       shell: bash
       run: |
+        # Проверяем, что мы используем правильный shell
+        echo "Current shell: $SHELL"
+        echo "Current OS: $(uname -a)"
+        
         # Проверяем существование файлов
-        if [ -f "frontend/index.html" ]; then echo "index.html exists"; fi
-        if [ -f "frontend/upload.html" ]; then echo "upload.html exists"; fi
-        if [ -f "frontend/scripts/script.js" ]; then echo "script.js exists"; fi
-        if [ -f "frontend/scripts/upload.js" ]; then echo "upload.js exists"; fi
-        if [ -f "frontend/scripts/analyze.js" ]; then echo "analyze.js exists"; fi
-        if [ -f "frontend/styles/style.css" ]; then echo "style.css exists"; fi
-        if [ -f "frontend/styles/uploadstyle.css" ]; then echo "uploadstyle.css exists"; fi
-        echo "Frontend files check completed"
+        if [ -f "frontend/index.html" ]; then echo "✅ index.html exists"; fi
+        if [ -f "frontend/upload.html" ]; then echo "✅ upload.html exists"; fi
+        if [ -f "frontend/scripts/script.js" ]; then echo "✅ script.js exists"; fi
+        if [ -f "frontend/scripts/upload.js" ]; then echo "✅ upload.js exists"; fi
+        if [ -f "frontend/scripts/analyze.js" ]; then echo "✅ analyze.js exists"; fi
+        if [ -f "frontend/styles/style.css" ]; then echo "✅ style.css exists"; fi
+        if [ -f "frontend/styles/uploadstyle.css" ]; then echo "✅ uploadstyle.css exists"; fi
+        echo "🎉 Frontend files check completed"
 
 
   integration-tests:
