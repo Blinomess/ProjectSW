@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "Blinomess/ProjectSW",
+  "pipelineDirectory": "ProjectSW",
+  "workspaceDirectory": "ProjectSW\\ProjectSW",
+  "repositories": {
+    "Blinomess/ProjectSW": {
+      "repositoryPath": "ProjectSW\\ProjectSW",
+      "lastRunOn": "10/26/2025 00:06:01 +03:00"
+    }
+  },
+  "lastRunOn": "10/26/2025 00:06:01 +03:00"
+}
