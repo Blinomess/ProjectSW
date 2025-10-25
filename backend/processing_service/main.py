@@ -12,7 +12,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-STORAGE_DIR = "/app/storage"
+STORAGE_DIR = os.getenv("STORAGE_DIR", "/app/storage")
 
 @app.get("/analyze/{filename}")
 async def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
