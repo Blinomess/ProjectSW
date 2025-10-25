@@ -160,7 +160,7 @@ class TestIntegration:
         
         assert analysis_data["filename"] == "analysis_test.csv"
         assert analysis_data["columns_total"] == 4
-        assert analysis_data["columns_selected"] == "Все столбцы"
+        assert analysis_data["columns_selected"] == "Все"
         assert len(analysis_data["analysis"]) == 4
         
         # Проверяем статистику для числовых столбцов
@@ -181,7 +181,7 @@ class TestIntegration:
         assert specific_analysis_response.status_code == 200
         specific_data = specific_analysis_response.json()
         
-        assert specific_data["columns_selected"] == "2,3"
+        assert specific_data["columns_selected"] == ['age', 'salary']
         assert len(specific_data["analysis"]) == 2
         
         analyzed_columns = [col["column"] for col in specific_data["analysis"]]
