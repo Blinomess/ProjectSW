@@ -86,7 +86,7 @@ class TestUserRegistration:
         """Регистрация с некорректными данными"""
         invalid_data = {"username": "", "password": "123"}
         response = client.post("/register", json=invalid_data)
-        assert response.status_code == 422
+        assert response.status_code == 400
 
 class TestUserLogin:
     """Тесты входа пользователей"""

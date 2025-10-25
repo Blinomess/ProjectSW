@@ -25,6 +25,9 @@ async def register(user: UserModel, db: Session = Depends(get_db)):
     if db.query(models.User).filter_by(username=user.username).first():
         raise HTTPException(status_code=400, detail="User already exists")
     
+    if len(user.username) < 3:
+        raise HTTPException(status_code=400, detail="Username must be at least 3 characters long")
+
     user_obj = models.User(
         username=user.username, 
         password_hash=utils.hash_password(user.password)
