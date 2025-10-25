@@ -181,16 +181,43 @@ jobs:
       run: |
         echo "REPO_NAME_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-    - name: Build and push Docker images
+    - name: Build and push auth-service
       uses: docker/build-push-action@v5
       with:
+        context: ./backend/authentification_service
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: |
-          ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/auth-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/data-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/processing-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/frontend:${{ github.sha }}
+        tags: ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/auth-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and push data-service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend/data_service
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/data-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and push processing-service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend/processing_service
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/processing-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and push frontend
+      uses: docker/build-push-action@v5
+      with:
+        context: ./frontend
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ env.REGISTRY }}/${{ env.REPO_NAME_LOWER }}/frontend:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
