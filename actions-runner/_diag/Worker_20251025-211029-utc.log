@@ -1,0 +1,3995 @@
+[2025-10-25 21:10:29Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\user\ProjectSW\actions-runner\.credentials'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Runner': 'C:\Users\user\ProjectSW\actions-runner\.runner'
+[2025-10-25 21:10:29Z INFO Worker] Version: 2.329.0
+[2025-10-25 21:10:29Z INFO Worker] Commit: c76c59996c8fa32e989164a5a695efb12608ae5a
+[2025-10-25 21:10:29Z INFO Worker] Culture: ru-RU
+[2025-10-25 21:10:29Z INFO Worker] UI Culture: ru-RU
+[2025-10-25 21:10:29Z INFO Worker] Waiting to receive the job message from the channel.
+[2025-10-25 21:10:29Z INFO ProcessChannel] Receiving message of length 23014, with hash 'c9e9c197a8e8271660bc3c5032dcd356e19f6992c8756e2331c836c5733922ce'
+[2025-10-25 21:10:29Z INFO Worker] Message received.
+[2025-10-25 21:10:29Z INFO Worker] Job message:
+ {
+  "environmentVariables": [
+    {
+      "type": 2,
+      "file": 1,
+      "line": 10,
+      "col": 3,
+      "map": [
+        {
+          "key": {
+            "type": 0,
+            "file": 1,
+            "line": 10,
+            "col": 3,
+            "lit": "REGISTRY"
+          },
+          "value": {
+            "type": 0,
+            "file": 1,
+            "line": 10,
+            "col": 13,
+            "lit": "ghcr.io"
+          }
+        },
+        {
+          "key": {
+            "type": 0,
+            "file": 1,
+            "line": 11,
+            "col": 3,
+            "lit": "IMAGE_NAME"
+          },
+          "value": {
+            "type": 3,
+            "file": 1,
+            "line": 11,
+            "col": 15,
+            "expr": "github.repository"
+          }
+        }
+      ]
+    }
+  ],
+  "fileTable": [
+    ".github/workflows/ci-cd.yml"
+  ],
+  "mask": [
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "actions/checkout",
+        "ref": "v4",
+        "repositoryType": "GitHub"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 37,
+        "col": 13,
+        "lit": "Checkout code"
+      },
+      "contextName": "__actions_checkout",
+      "condition": "success()",
+      "id": "312f422a-036a-4a78-9ea6-fa4f64d3a013",
+      "name": "__actions_checkout"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "actions/setup-python",
+        "ref": "v4",
+        "repositoryType": "GitHub"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 40,
+        "col": 13,
+        "lit": "Set up Python"
+      },
+      "contextName": "__actions_setup-python",
+      "inputs": {
+        "type": 2,
+        "file": 1,
+        "line": 43,
+        "col": 9,
+        "map": [
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 43,
+              "col": 9,
+              "lit": "python-version"
+            },
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 43,
+              "col": 25,
+              "lit": "3.11"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "3f7bd98a-1988-40bf-99f5-cef288922638",
+      "name": "__actions_setup-python"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "actions/cache",
+        "ref": "v3",
+        "repositoryType": "GitHub"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 45,
+        "col": 13,
+        "lit": "Cache pip dependencies"
+      },
+      "contextName": "__actions_cache",
+      "inputs": {
+        "type": 2,
+        "file": 1,
+        "line": 48,
+        "col": 9,
+        "map": [
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 48,
+              "col": 9,
+              "lit": "path"
+            },
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 48,
+              "col": 15,
+              "lit": "~/.cache/pip"
+            }
+          },
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 49,
+              "col": 9,
+              "lit": "key"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 49,
+              "col": 14,
+              "expr": "format('{0}-pip-{1}', runner.os, hashFiles('backend/${{ matrix.service }}/requirements.txt'))"
+            }
+          },
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 50,
+              "col": 9,
+              "lit": "restore-keys"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 50,
+              "col": 23,
+              "expr": "format('{0}-pip-\n', runner.os)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "ebea9a9e-7fd9-4d14-8307-4533649837cc",
+      "name": "__actions_cache"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 53,
+        "col": 13,
+        "lit": "Install dependencies"
+      },
+      "contextName": "__run",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 54,
+              "col": 12,
+              "expr": "format('cd backend/{0}\npython -m pip install --upgrade pip\npip install -r requirements.txt\npip install pytest pytest-asyncio pytest-cov httpx\n', matrix.service)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "a0414472-f1cd-41c4-82f4-88472c70052d",
+      "name": "__run"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 60,
+        "col": 13,
+        "lit": "Run unit tests"
+      },
+      "contextName": "__run_2",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 61,
+              "col": 12,
+              "expr": "format('cd backend/{0}\npytest tests/ -v --cov=. --cov-report=xml:coverage.xml --cov-report=html\n', matrix.service)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "2f9d744d-c685-49f4-af79-dbba93ad6655",
+      "name": "__run_2"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "codecov/codecov-action",
+        "ref": "v3",
+        "repositoryType": "GitHub"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 65,
+        "col": 13,
+        "lit": "Upload coverage to Codecov"
+      },
+      "contextName": "__codecov_codecov-action",
+      "inputs": {
+        "type": 2,
+        "file": 1,
+        "line": 68,
+        "col": 9,
+        "map": [
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 68,
+              "col": 9,
+              "lit": "file"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 68,
+              "col": 15,
+              "expr": "format('backend/{0}/coverage.xml', matrix.service)"
+            }
+          },
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 69,
+              "col": 9,
+              "lit": "flags"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 69,
+              "col": 16,
+              "expr": "matrix.service"
+            }
+          },
+          {
+            "key": {
+              "type": 0,
+              "file": 1,
+              "line": 70,
+              "col": 9,
+              "lit": "name"
+            },
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 70,
+              "col": 15,
+              "expr": "format('{0}-coverage', matrix.service)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "21aaeb38-e703-45f8-bcfb-c12848fb339f",
+      "name": "__codecov_codecov-action"
+    }
+  ],
+  "variables": {
+    "Actions.EnableHttpRedirects": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode12Action": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode16Action": {
+      "value": "true"
+    },
+    "DistributedTask.AllowRunnerContainerHooks": {
+      "value": "true"
+    },
+    "DistributedTask.DeprecateStepOutputCommands": {
+      "value": "true"
+    },
+    "DistributedTask.DetailUntarFailure": {
+      "value": "true"
+    },
+    "DistributedTask.EnableCompositeActions": {
+      "value": "true"
+    },
+    "DistributedTask.EnableJobServerQueueTelemetry": {
+      "value": "true"
+    },
+    "DistributedTask.EnhancedAnnotations": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode16": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode20": {
+      "value": "true"
+    },
+    "DistributedTask.LogTemplateErrorsAsDebugMessages": {
+      "value": "true"
+    },
+    "DistributedTask.MarkJobAsFailedOnWorkerCrash": {
+      "value": "true"
+    },
+    "DistributedTask.NewActionMetadata": {
+      "value": "true"
+    },
+    "DistributedTask.UploadStepSummary": {
+      "value": "true"
+    },
+    "DistributedTask.UseActionArchiveCache": {
+      "value": "true"
+    },
+    "DistributedTask.UseWhich2": {
+      "value": "true"
+    },
+    "RunService.FixEmbeddedIssues": {
+      "value": "true"
+    },
+    "actions_add_check_run_id_to_job_context": {
+      "value": "true"
+    },
+    "actions_container_action_runner_temp": {
+      "value": "false"
+    },
+    "actions_display_helpful_actions_download_errors": {
+      "value": "true"
+    },
+    "actions_skip_retry_complete_job_upon_known_errors": {
+      "value": "true"
+    },
+    "actions_uses_cache_service_v2": {
+      "value": "true"
+    },
+    "github_token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.from_run_service": {
+      "value": "true"
+    },
+    "system.github.job": {
+      "value": "backend-tests"
+    },
+    "system.github.launch_endpoint": {
+      "value": "https://launch.actions.githubusercontent.com"
+    },
+    "system.github.results_endpoint": {
+      "value": "https://results-receiver.actions.githubusercontent.com/"
+    },
+    "system.github.results_upload_with_sdk": {
+      "value": "true"
+    },
+    "system.github.token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.github.token.permissions": {
+      "value": "{\"Contents\":\"read\",\"Metadata\":\"read\",\"Packages\":\"read\"}"
+    },
+    "system.orchestrationId": {
+      "value": "a0dca4f6-5cde-48df-97f4-edfef49d47fc.backend-tests.processing_service"
+    },
+    "system.phaseDisplayName": {
+      "value": "backend-tests (processing_service)"
+    },
+    "system.runner.lowdiskspacethreshold": {
+      "value": "100"
+    },
+    "system.runnerEnvironment": {
+      "value": "self-hosted"
+    },
+    "system.runnerGroupName": {
+      "value": "Default"
+    }
+  },
+  "messageType": "RunnerJobRequest",
+  "plan": {
+    "scopeIdentifier": "00000000-0000-0000-0000-000000000000",
+    "planType": "actions",
+    "version": 0,
+    "planId": "a0dca4f6-5cde-48df-97f4-edfef49d47fc",
+    "planGroup": null,
+    "artifactUri": null,
+    "artifactLocation": null,
+    "definition": null,
+    "owner": null
+  },
+  "timeline": {
+    "id": "a0dca4f6-5cde-48df-97f4-edfef49d47fc",
+    "changeId": 0,
+    "location": null
+  },
+  "jobId": "fdf4b2f5-09e4-5d89-82e5-30de749dc9ca",
+  "jobDisplayName": "backend-tests (processing_service)",
+  "jobName": "processing_service",
+  "jobServiceContainers": {
+    "type": 2,
+    "file": 1,
+    "line": 18,
+    "col": 7,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 1,
+          "line": 18,
+          "col": 7,
+          "lit": "postgres"
+        },
+        "value": {
+          "type": 2,
+          "file": 1,
+          "line": 19,
+          "col": 9,
+          "map": [
+            {
+              "key": {
+                "type": 0,
+                "file": 1,
+                "line": 19,
+                "col": 9,
+                "lit": "image"
+              },
+              "value": {
+                "type": 0,
+                "file": 1,
+                "line": 19,
+                "col": 16,
+                "lit": "postgres:13"
+              }
+            },
+            {
+              "key": {
+                "type": 0,
+                "file": 1,
+                "line": 20,
+                "col": 9,
+                "lit": "env"
+              },
+              "value": {
+                "type": 2,
+                "file": 1,
+                "line": 21,
+                "col": 11,
+                "map": [
+                  {
+                    "key": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 21,
+                      "col": 11,
+                      "lit": "POSTGRES_PASSWORD"
+                    },
+                    "value": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 21,
+                      "col": 30,
+                      "lit": "test_password"
+                    }
+                  },
+                  {
+                    "key": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 22,
+                      "col": 11,
+                      "lit": "POSTGRES_USER"
+                    },
+                    "value": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 22,
+                      "col": 26,
+                      "lit": "test_user"
+                    }
+                  },
+                  {
+                    "key": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 23,
+                      "col": 11,
+                      "lit": "POSTGRES_DB"
+                    },
+                    "value": {
+                      "type": 0,
+                      "file": 1,
+                      "line": 23,
+                      "col": 24,
+                      "lit": "test_db"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "key": {
+                "type": 0,
+                "file": 1,
+                "line": 24,
+                "col": 9,
+                "lit": "options"
+              },
+              "value": {
+                "type": 0,
+                "file": 1,
+                "line": 24,
+                "col": 18,
+                "lit": "--health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5"
+              }
+            },
+            {
+              "key": {
+                "type": 0,
+                "file": 1,
+                "line": 29,
+                "col": 9,
+                "lit": "ports"
+              },
+              "value": {
+                "type": 1,
+                "file": 1,
+                "line": 30,
+                "col": 11,
+                "seq": [
+                  {
+                    "type": 0,
+                    "file": 1,
+                    "line": 30,
+                    "col": 13,
+                    "lit": "5432:5432"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "requestId": 0,
+  "lockedUntil": "0001-01-01T00:00:00",
+  "resources": {
+    "endpoints": [
+      {
+        "data": {
+          "ServerId": "",
+          "ServerName": "",
+          "CacheServerUrl": "https://artifactcache.actions.githubusercontent.com/PFKQpWSHbGOyh3Lq4FyHgurdodRQxMojWW3wkYbxLEBpbGP9Oh/",
+          "FeedStreamUrl": "wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock",
+          "ResultsServiceUrl": "https://results-receiver.actions.githubusercontent.com/",
+          "PipelinesServiceUrl": "https://pipelinesghubeus23.actions.githubusercontent.com/PFKQpWSHbGOyh3Lq4FyHgurdodRQxMojWW3wkYbxLEBpbGP9Oh/",
+          "GenerateIdTokenUrl": ""
+        },
+        "name": "SystemVssConnection",
+        "url": "https://run-actions-3-azure-eastus.actions.githubusercontent.com/118/",
+        "authorization": {
+          "parameters": {
+            "AccessToken": "***"
+          },
+          "scheme": "OAuth"
+        },
+        "isShared": false,
+        "isReady": true
+      }
+    ]
+  },
+  "contextData": {
+    "github": {
+      "t": 2,
+      "d": [
+        {
+          "k": "ref",
+          "v": "refs/heads/develop"
+        },
+        {
+          "k": "sha",
+          "v": "4c287bad269caef38c9f414e75a68885b004c235"
+        },
+        {
+          "k": "repository",
+          "v": "Blinomess/ProjectSW"
+        },
+        {
+          "k": "repository_owner",
+          "v": "Blinomess"
+        },
+        {
+          "k": "repository_owner_id",
+          "v": "199006269"
+        },
+        {
+          "k": "repositoryUrl",
+          "v": "git://github.com/Blinomess/ProjectSW.git"
+        },
+        {
+          "k": "run_id",
+          "v": "18808518874"
+        },
+        {
+          "k": "run_number",
+          "v": "22"
+        },
+        {
+          "k": "retention_days",
+          "v": "90"
+        },
+        {
+          "k": "run_attempt",
+          "v": "1"
+        },
+        {
+          "k": "artifact_cache_size_limit",
+          "v": "10"
+        },
+        {
+          "k": "repository_visibility",
+          "v": "public"
+        },
+        {
+          "k": "actor_id",
+          "v": "199006269"
+        },
+        {
+          "k": "actor",
+          "v": "Blinomess"
+        },
+        {
+          "k": "workflow",
+          "v": "CI/CD Pipeline"
+        },
+        {
+          "k": "head_ref",
+          "v": ""
+        },
+        {
+          "k": "base_ref",
+          "v": ""
+        },
+        {
+          "k": "event_name",
+          "v": "push"
+        },
+        {
+          "k": "server_url",
+          "v": "https://github.com"
+        },
+        {
+          "k": "api_url",
+          "v": "https://api.github.com"
+        },
+        {
+          "k": "graphql_url",
+          "v": "https://api.github.com/graphql"
+        },
+        {
+          "k": "ref_name",
+          "v": "develop"
+        },
+        {
+          "k": "ref_protected",
+          "v": false
+        },
+        {
+          "k": "ref_type",
+          "v": "branch"
+        },
+        {
+          "k": "secret_source",
+          "v": "Actions"
+        },
+        {
+          "k": "event",
+          "v": {
+            "t": 2,
+            "d": [
+              {
+                "k": "after",
+                "v": "4c287bad269caef38c9f414e75a68885b004c235"
+              },
+              {
+                "k": "base_ref",
+                "v": null
+              },
+              {
+                "k": "before",
+                "v": "f42aa8e446ad8219826ffca281a5f8c41b9bf47a"
+              },
+              {
+                "k": "commits",
+                "v": {
+                  "t": 1,
+                  "a": [
+                    {
+                      "t": 2,
+                      "d": [
+                        {
+                          "k": "author",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "you@example.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "Your Name"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "committer",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "you@example.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "Your Name"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "distinct",
+                          "v": true
+                        },
+                        {
+                          "k": "id",
+                          "v": "4c287bad269caef38c9f414e75a68885b004c235"
+                        },
+                        {
+                          "k": "message",
+                          "v": "fixxxxxxxxxxxxx"
+                        },
+                        {
+                          "k": "timestamp",
+                          "v": "2025-10-26T00:09:14+03:00"
+                        },
+                        {
+                          "k": "tree_id",
+                          "v": "e617b4fe959b4ce51388b2bd19b6d7ee65703e08"
+                        },
+                        {
+                          "k": "url",
+                          "v": "https://github.com/Blinomess/ProjectSW/commit/4c287bad269caef38c9f414e75a68885b004c235"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "compare",
+                "v": "https://github.com/Blinomess/ProjectSW/compare/f42aa8e446ad...4c287bad269c"
+              },
+              {
+                "k": "created",
+                "v": false
+              },
+              {
+                "k": "deleted",
+                "v": false
+              },
+              {
+                "k": "forced",
+                "v": false
+              },
+              {
+                "k": "head_commit",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "author",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "you@example.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Your Name"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "committer",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "you@example.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Your Name"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "distinct",
+                      "v": true
+                    },
+                    {
+                      "k": "id",
+                      "v": "4c287bad269caef38c9f414e75a68885b004c235"
+                    },
+                    {
+                      "k": "message",
+                      "v": "fixxxxxxxxxxxxx"
+                    },
+                    {
+                      "k": "timestamp",
+                      "v": "2025-10-26T00:09:14+03:00"
+                    },
+                    {
+                      "k": "tree_id",
+                      "v": "e617b4fe959b4ce51388b2bd19b6d7ee65703e08"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://github.com/Blinomess/ProjectSW/commit/4c287bad269caef38c9f414e75a68885b004c235"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "pusher",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "email",
+                      "v": "nikolaybudinov@mail.ru"
+                    },
+                    {
+                      "k": "name",
+                      "v": "Blinomess"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "ref",
+                "v": "refs/heads/develop"
+              },
+              {
+                "k": "repository",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "allow_forking",
+                      "v": true
+                    },
+                    {
+                      "k": "archive_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/{archive_format}{/ref}"
+                    },
+                    {
+                      "k": "archived",
+                      "v": false
+                    },
+                    {
+                      "k": "assignees_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/assignees{/user}"
+                    },
+                    {
+                      "k": "blobs_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/git/blobs{/sha}"
+                    },
+                    {
+                      "k": "branches_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/branches{/branch}"
+                    },
+                    {
+                      "k": "clone_url",
+                      "v": "https://github.com/Blinomess/ProjectSW.git"
+                    },
+                    {
+                      "k": "collaborators_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/collaborators{/collaborator}"
+                    },
+                    {
+                      "k": "comments_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/comments{/number}"
+                    },
+                    {
+                      "k": "commits_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/commits{/sha}"
+                    },
+                    {
+                      "k": "compare_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/compare/{base}...{head}"
+                    },
+                    {
+                      "k": "contents_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/contents/{+path}"
+                    },
+                    {
+                      "k": "contributors_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/contributors"
+                    },
+                    {
+                      "k": "created_at",
+                      "v": 1759864160.0
+                    },
+                    {
+                      "k": "default_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "deployments_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/deployments"
+                    },
+                    {
+                      "k": "description",
+                      "v": "Курсовая по ниаспо"
+                    },
+                    {
+                      "k": "disabled",
+                      "v": false
+                    },
+                    {
+                      "k": "downloads_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/downloads"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/events"
+                    },
+                    {
+                      "k": "fork",
+                      "v": false
+                    },
+                    {
+                      "k": "forks",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/forks"
+                    },
+                    {
+                      "k": "full_name",
+                      "v": "Blinomess/ProjectSW"
+                    },
+                    {
+                      "k": "git_commits_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/git/commits{/sha}"
+                    },
+                    {
+                      "k": "git_refs_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/git/refs{/sha}"
+                    },
+                    {
+                      "k": "git_tags_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/git/tags{/sha}"
+                    },
+                    {
+                      "k": "git_url",
+                      "v": "git://github.com/Blinomess/ProjectSW.git"
+                    },
+                    {
+                      "k": "has_discussions",
+                      "v": false
+                    },
+                    {
+                      "k": "has_downloads",
+                      "v": true
+                    },
+                    {
+                      "k": "has_issues",
+                      "v": true
+                    },
+                    {
+                      "k": "has_pages",
+                      "v": false
+                    },
+                    {
+                      "k": "has_projects",
+                      "v": true
+                    },
+                    {
+                      "k": "has_wiki",
+                      "v": true
+                    },
+                    {
+                      "k": "homepage",
+                      "v": null
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/hooks"
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/Blinomess/ProjectSW"
+                    },
+                    {
+                      "k": "id",
+                      "v": 1071754425.0
+                    },
+                    {
+                      "k": "is_template",
+                      "v": false
+                    },
+                    {
+                      "k": "issue_comment_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/issues/comments{/number}"
+                    },
+                    {
+                      "k": "issue_events_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/issues/events{/number}"
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/issues{/number}"
+                    },
+                    {
+                      "k": "keys_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/keys{/key_id}"
+                    },
+                    {
+                      "k": "labels_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/labels{/name}"
+                    },
+                    {
+                      "k": "language",
+                      "v": "JavaScript"
+                    },
+                    {
+                      "k": "languages_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/languages"
+                    },
+                    {
+                      "k": "license",
+                      "v": null
+                    },
+                    {
+                      "k": "master_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "merges_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/merges"
+                    },
+                    {
+                      "k": "milestones_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/milestones{/number}"
+                    },
+                    {
+                      "k": "mirror_url",
+                      "v": null
+                    },
+                    {
+                      "k": "name",
+                      "v": "ProjectSW"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "R_kgDOP-GsuQ"
+                    },
+                    {
+                      "k": "notifications_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/notifications{?since,all,participating}"
+                    },
+                    {
+                      "k": "open_issues",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "open_issues_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "owner",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "avatar_url",
+                            "v": "https://avatars.githubusercontent.com/u/199006269?v=4"
+                          },
+                          {
+                            "k": "email",
+                            "v": "nikolaybudinov@mail.ru"
+                          },
+                          {
+                            "k": "events_url",
+                            "v": "https://api.github.com/users/Blinomess/events{/privacy}"
+                          },
+                          {
+                            "k": "followers_url",
+                            "v": "https://api.github.com/users/Blinomess/followers"
+                          },
+                          {
+                            "k": "following_url",
+                            "v": "https://api.github.com/users/Blinomess/following{/other_user}"
+                          },
+                          {
+                            "k": "gists_url",
+                            "v": "https://api.github.com/users/Blinomess/gists{/gist_id}"
+                          },
+                          {
+                            "k": "gravatar_id",
+                            "v": ""
+                          },
+                          {
+                            "k": "html_url",
+                            "v": "https://github.com/Blinomess"
+                          },
+                          {
+                            "k": "id",
+                            "v": 199006269.0
+                          },
+                          {
+                            "k": "login",
+                            "v": "Blinomess"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Blinomess"
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "U_kgDOC9yYPQ"
+                          },
+                          {
+                            "k": "organizations_url",
+                            "v": "https://api.github.com/users/Blinomess/orgs"
+                          },
+                          {
+                            "k": "received_events_url",
+                            "v": "https://api.github.com/users/Blinomess/received_events"
+                          },
+                          {
+                            "k": "repos_url",
+                            "v": "https://api.github.com/users/Blinomess/repos"
+                          },
+                          {
+                            "k": "site_admin",
+                            "v": false
+                          },
+                          {
+                            "k": "starred_url",
+                            "v": "https://api.github.com/users/Blinomess/starred{/owner}{/repo}"
+                          },
+                          {
+                            "k": "subscriptions_url",
+                            "v": "https://api.github.com/users/Blinomess/subscriptions"
+                          },
+                          {
+                            "k": "type",
+                            "v": "User"
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/users/Blinomess"
+                          },
+                          {
+                            "k": "user_view_type",
+                            "v": "public"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "private",
+                      "v": false
+                    },
+                    {
+                      "k": "pulls_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/pulls{/number}"
+                    },
+                    {
+                      "k": "pushed_at",
+                      "v": 1761426538.0
+                    },
+                    {
+                      "k": "releases_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/releases{/id}"
+                    },
+                    {
+                      "k": "size",
+                      "v": 103.0
+                    },
+                    {
+                      "k": "ssh_url",
+                      "v": "git@github.com:Blinomess/ProjectSW.git"
+                    },
+                    {
+                      "k": "stargazers",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "stargazers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "stargazers_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/stargazers"
+                    },
+                    {
+                      "k": "statuses_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/statuses/{sha}"
+                    },
+                    {
+                      "k": "subscribers_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/subscribers"
+                    },
+                    {
+                      "k": "subscription_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/subscription"
+                    },
+                    {
+                      "k": "svn_url",
+                      "v": "https://github.com/Blinomess/ProjectSW"
+                    },
+                    {
+                      "k": "tags_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/tags"
+                    },
+                    {
+                      "k": "teams_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/teams"
+                    },
+                    {
+                      "k": "topics",
+                      "v": {
+                        "t": 1
+                      }
+                    },
+                    {
+                      "k": "trees_url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW/git/trees{/sha}"
+                    },
+                    {
+                      "k": "updated_at",
+                      "v": "2025-10-19T17:36:08Z"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/repos/Blinomess/ProjectSW"
+                    },
+                    {
+                      "k": "visibility",
+                      "v": "public"
+                    },
+                    {
+                      "k": "watchers",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "watchers_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "web_commit_signoff_required",
+                      "v": false
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "sender",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/199006269?v=4"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/users/Blinomess/events{/privacy}"
+                    },
+                    {
+                      "k": "followers_url",
+                      "v": "https://api.github.com/users/Blinomess/followers"
+                    },
+                    {
+                      "k": "following_url",
+                      "v": "https://api.github.com/users/Blinomess/following{/other_user}"
+                    },
+                    {
+                      "k": "gists_url",
+                      "v": "https://api.github.com/users/Blinomess/gists{/gist_id}"
+                    },
+                    {
+                      "k": "gravatar_id",
+                      "v": ""
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/Blinomess"
+                    },
+                    {
+                      "k": "id",
+                      "v": 199006269.0
+                    },
+                    {
+                      "k": "login",
+                      "v": "Blinomess"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "U_kgDOC9yYPQ"
+                    },
+                    {
+                      "k": "organizations_url",
+                      "v": "https://api.github.com/users/Blinomess/orgs"
+                    },
+                    {
+                      "k": "received_events_url",
+                      "v": "https://api.github.com/users/Blinomess/received_events"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/users/Blinomess/repos"
+                    },
+                    {
+                      "k": "site_admin",
+                      "v": false
+                    },
+                    {
+                      "k": "starred_url",
+                      "v": "https://api.github.com/users/Blinomess/starred{/owner}{/repo}"
+                    },
+                    {
+                      "k": "subscriptions_url",
+                      "v": "https://api.github.com/users/Blinomess/subscriptions"
+                    },
+                    {
+                      "k": "type",
+                      "v": "User"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/users/Blinomess"
+                    },
+                    {
+                      "k": "user_view_type",
+                      "v": "public"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "k": "workflow_ref",
+          "v": "Blinomess/ProjectSW/.github/workflows/ci-cd.yml@refs/heads/develop"
+        },
+        {
+          "k": "workflow_sha",
+          "v": "4c287bad269caef38c9f414e75a68885b004c235"
+        },
+        {
+          "k": "repository_id",
+          "v": "1071754425"
+        },
+        {
+          "k": "triggering_actor",
+          "v": "Blinomess"
+        }
+      ]
+    },
+    "inputs": {
+      "t": 2
+    },
+    "job": {
+      "t": 2,
+      "d": [
+        {
+          "k": "check_run_id",
+          "v": 53666281800.0
+        }
+      ]
+    },
+    "matrix": {
+      "t": 2,
+      "d": [
+        {
+          "k": "service",
+          "v": "processing_service"
+        }
+      ]
+    },
+    "needs": {
+      "t": 2
+    },
+    "strategy": {
+      "t": 2,
+      "d": [
+        {
+          "k": "fail-fast",
+          "v": true
+        },
+        {
+          "k": "job-index",
+          "v": 2.0
+        },
+        {
+          "k": "job-total",
+          "v": 3.0
+        },
+        {
+          "k": "max-parallel",
+          "v": 3.0
+        }
+      ]
+    },
+    "vars": {
+      "t": 2
+    }
+  },
+  "billingOwnerId": "U_kgDOC9yYPQ"
+}
+[2025-10-25 21:10:29Z INFO JobRunner] Job ID fdf4b2f5-09e4-5d89-82e5-30de749dc9ca
+[2025-10-25 21:10:29Z INFO ConfigurationStore] currentAssemblyLocation: C:\Users\user\ProjectSW\actions-runner\bin\Runner.Worker.dll
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] binPath: C:\Users\user\ProjectSW\actions-runner\bin
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] RootFolder: C:\Users\user\ProjectSW\actions-runner
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Runner': 'C:\Users\user\ProjectSW\actions-runner\.runner'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] ConfigFilePath: C:\Users\user\ProjectSW\actions-runner\.runner
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'MigratedRunner': 'C:\Users\user\ProjectSW\actions-runner\.runner_migrated'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] MigratedConfigFilePath: C:\Users\user\ProjectSW\actions-runner\.runner_migrated
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\user\ProjectSW\actions-runner\.credentials'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] CredFilePath: C:\Users\user\ProjectSW\actions-runner\.credentials
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'MigratedCredentials': 'C:\Users\user\ProjectSW\actions-runner\.credentials_migrated'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] MigratedCredFilePath: C:\Users\user\ProjectSW\actions-runner\.credentials_migrated
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Service': 'C:\Users\user\ProjectSW\actions-runner\.service'
+[2025-10-25 21:10:29Z INFO ConfigurationStore] ServiceConfigFilePath: C:\Users\user\ProjectSW\actions-runner\.service
+[2025-10-25 21:10:29Z INFO ConfigurationStore] Read setting file: 395 chars
+[2025-10-25 21:10:29Z INFO JobRunner] Initializing launch client
+[2025-10-25 21:10:29Z INFO JobServerQueue] Initializing results client
+[2025-10-25 21:10:29Z INFO ResultServer] Creating websocket client ...wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock
+[2025-10-25 21:10:29Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2025-10-25 21:10:29Z INFO JobServerQueue] Start process web console line queue.
+[2025-10-25 21:10:29Z INFO JobServerQueue] Start process file upload queue.
+[2025-10-25 21:10:29Z INFO JobServerQueue] Start results file upload queue.
+[2025-10-25 21:10:29Z INFO JobServerQueue] Starting results-based upload queue...
+[2025-10-25 21:10:29Z INFO JobServerQueue] Start process timeline update queue.
+[2025-10-25 21:10:29Z INFO ExecutionContext] Initializing Job context
+[2025-10-25 21:10:29Z INFO ExecutionContext] Initialize GitHub context
+[2025-10-25 21:10:29Z INFO ExecutionContext] Initialize Env context
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:29Z INFO JobRunner] Starting the job execution context.
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO JobRunner] Validating directory permissions for: 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Tools': 'C:\Users\user\ProjectSW\actions-runner\_work\_tool'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Temp': 'C:\Users\user\ProjectSW\actions-runner\_work\_temp'
+[2025-10-25 21:10:29Z INFO JobRunner] Getting job extension.
+[2025-10-25 21:10:29Z INFO JobRunner] Initialize job. Getting all job steps.
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'Credentials': 'C:\Users\user\ProjectSW\actions-runner\.credentials'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known config file 'SetupInfo': 'C:\Users\user\ProjectSW\actions-runner\.setup_info'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO PipelineDirectoryManager] Loading tracking config if exists: C:\Users\user\ProjectSW\actions-runner\_work\_PipelineMapping\Blinomess/ProjectSW\PipelineFolder.json
+[2025-10-25 21:10:29Z INFO PipelineDirectoryManager] Updating job run properties.
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Tools': 'C:\Users\user\ProjectSW\actions-runner\_work\_tool'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Externals': 'C:\Users\user\ProjectSW\actions-runner\externals'
+[2025-10-25 21:10:29Z INFO JobExtension] Downloading actions
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:29Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:30Z INFO Worker] Listening for cancel message from the channel.
+[2025-10-25 21:10:30Z INFO Worker] Waiting for the job to complete or for a cancel message from the channel.
+[2025-10-25 21:10:30Z INFO ResultServer] Successfully started websocket client.
+[2025-10-25 21:10:30Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:30Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:30Z INFO ActionManager] Save archive 'https://api.github.com/repos/actions/checkout/zipball/08eba0b27e820071cde6df949e0beb9ba4906955' into C:\Users\user\ProjectSW\actions-runner\_work\_actions\_temp_00799d0e-0b5b-43be-956f-f419a7b06fe8\c5927e45-7d54-4299-ad38-de236ad4cd42.zip.
+[2025-10-25 21:10:30Z INFO JobServerQueue] Job timeline record has been updated for the first time.
+[2025-10-25 21:10:30Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:31Z INFO ActionManager] Request URL: https://api.github.com/repos/actions/checkout/zipball/08eba0b27e820071cde6df949e0beb9ba4906955 X-GitHub-Request-Id: FB4E:2315:326FF:4C4E9:68FD3CAA Http Status: OK
+[2025-10-25 21:10:31Z INFO ActionManager] Finished getting action repository.
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:31Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:31Z INFO ActionManager] Save archive 'https://api.github.com/repos/actions/setup-python/zipball/7f4fc3e22c37d6ff65e88745f38bd3157c663f7c' into C:\Users\user\ProjectSW\actions-runner\_work\_actions\_temp_449b6466-774d-4771-b40b-afa5eb400e7d\86e5fdd4-781b-45af-a700-9e1120f45a51.zip.
+[2025-10-25 21:10:31Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:32Z INFO ActionManager] Request URL: https://api.github.com/repos/actions/setup-python/zipball/7f4fc3e22c37d6ff65e88745f38bd3157c663f7c X-GitHub-Request-Id: FB53:89D3F:1CCA9C:29488B:68FD3CAB Http Status: OK
+[2025-10-25 21:10:33Z INFO ActionManager] Finished getting action repository.
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:33Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:33Z INFO ActionManager] Save archive 'https://api.github.com/repos/actions/cache/zipball/6f8efc29b200d32929f49075959781ed54ec270c' into C:\Users\user\ProjectSW\actions-runner\_work\_actions\_temp_0c961cfa-c8fa-47fb-a16e-10336100c7b4\0cc26c6a-8d47-44fc-8762-12f079422083.zip.
+[2025-10-25 21:10:33Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:34Z INFO ActionManager] Request URL: https://api.github.com/repos/actions/cache/zipball/6f8efc29b200d32929f49075959781ed54ec270c X-GitHub-Request-Id: FB58:38E1D5:1C10B7:289043:68FD3CAC Http Status: OK
+[2025-10-25 21:10:34Z INFO ActionManager] Finished getting action repository.
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:34Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:34Z INFO ActionManager] Save archive 'https://api.github.com/repos/codecov/codecov-action/zipball/ab904c41d6ece82784817410c45d8b8c02684457' into C:\Users\user\ProjectSW\actions-runner\_work\_actions\_temp_0fbacae0-5e48-4e21-859d-ebd3cef7c496\78ced17a-2ca1-40a0-9cb2-4313cd201b88.zip.
+[2025-10-25 21:10:34Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:35Z INFO ActionManager] Request URL: https://api.github.com/repos/codecov/codecov-action/zipball/ab904c41d6ece82784817410c45d8b8c02684457 X-GitHub-Request-Id: FB5C:50749:91E7F:D5B78:68FD3CAE Http Status: OK
+[2025-10-25 21:10:35Z INFO ActionManager] Finished getting action repository.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Load schema file with definitions: [
+  "null",
+  "boolean",
+  "number",
+  "string",
+  "sequence",
+  "mapping",
+  "any",
+  "action-root",
+  "inputs",
+  "input",
+  "outputs",
+  "output-definition",
+  "runs",
+  "container-runs",
+  "container-runs-args",
+  "container-runs-env",
+  "node-runs",
+  "plugin-runs",
+  "composite-runs",
+  "composite-steps",
+  "composite-step",
+  "run-step",
+  "uses-step",
+  "container-runs-context",
+  "output-value",
+  "input-default-context",
+  "non-empty-string",
+  "string-steps-context",
+  "boolean-steps-context",
+  "step-env",
+  "step-if",
+  "step-with"
+]
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/index.js, no more preparation.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManager] Load action that reference repository from 'C:\Users\user\ProjectSW\actions-runner\_work\_actions\actions\checkout\v4'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "ssh-user"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 14,
+          "lit": "git"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 52,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 54,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 57,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 59,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 3,
+          "lit": "filter"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 69,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 76,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 77,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 79,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 80,
+          "col": 3,
+          "lit": "show-progress"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 94,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 95,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 97,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 98,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node20",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action pre node.js file: N/A.
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/index.js.
+[2025-10-25 21:10:35Z INFO ActionManager] Action post node.js file: dist/index.js.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Setup Python",
+  "description": "Set up a specific version of Python and add the command-line tools to the PATH.",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 6,
+          "col": 3,
+          "lit": "python-version"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 8,
+          "col": 3,
+          "lit": "python-version-file"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 10,
+          "col": 3,
+          "lit": "cache"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 13,
+          "col": 3,
+          "lit": "architecture"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 15,
+          "col": 3,
+          "lit": "check-latest"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 17,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 18,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 3,
+          "line": 20,
+          "col": 14,
+          "expr": "github.server_url == 'https://github.com' && github.token || ''"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 21,
+          "col": 3,
+          "lit": "cache-dependency-path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 23,
+          "col": 3,
+          "lit": "update-environment"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 25,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 26,
+          "col": 3,
+          "lit": "allow-prereleases"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 28,
+          "col": 14,
+          "lit": "false"
+        }
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/setup/index.js",
+    "pre": null,
+    "post": "dist/cache-save/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "success()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/setup/index.js, no more preparation.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManager] Load action that reference repository from 'C:\Users\user\ProjectSW\actions-runner\_work\_actions\actions\setup-python\v4'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Setup Python",
+  "description": "Set up a specific version of Python and add the command-line tools to the PATH.",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 6,
+          "col": 3,
+          "lit": "python-version"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 8,
+          "col": 3,
+          "lit": "python-version-file"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 10,
+          "col": 3,
+          "lit": "cache"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 13,
+          "col": 3,
+          "lit": "architecture"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 15,
+          "col": 3,
+          "lit": "check-latest"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 17,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 18,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 3,
+          "line": 20,
+          "col": 14,
+          "expr": "github.server_url == 'https://github.com' && github.token || ''"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 21,
+          "col": 3,
+          "lit": "cache-dependency-path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 23,
+          "col": 3,
+          "lit": "update-environment"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 25,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 3,
+          "line": 26,
+          "col": 3,
+          "lit": "allow-prereleases"
+        },
+        "value": {
+          "type": 0,
+          "file": 3,
+          "line": 28,
+          "col": 14,
+          "lit": "false"
+        }
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/setup/index.js",
+    "pre": null,
+    "post": "dist/cache-save/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "success()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action pre node.js file: N/A.
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/setup/index.js.
+[2025-10-25 21:10:35Z INFO ActionManager] Action post node.js file: dist/cache-save/index.js.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Cache",
+  "description": "Cache artifacts like dependencies and build outputs to improve workflow execution time",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 5,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 8,
+          "col": 3,
+          "lit": "key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 11,
+          "col": 3,
+          "lit": "restore-keys"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 14,
+          "col": 3,
+          "lit": "upload-chunk-size"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 17,
+          "col": 3,
+          "lit": "enableCrossOsArchive"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 19,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 21,
+          "col": 3,
+          "lit": "fail-on-cache-miss"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 23,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 25,
+          "col": 3,
+          "lit": "lookup-only"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 27,
+          "col": 14,
+          "lit": "false"
+        }
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/restore/index.js",
+    "pre": null,
+    "post": "dist/save/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "success()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/restore/index.js, no more preparation.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManager] Load action that reference repository from 'C:\Users\user\ProjectSW\actions-runner\_work\_actions\actions\cache\v3'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Cache",
+  "description": "Cache artifacts like dependencies and build outputs to improve workflow execution time",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 5,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 8,
+          "col": 3,
+          "lit": "key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 11,
+          "col": 3,
+          "lit": "restore-keys"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 14,
+          "col": 3,
+          "lit": "upload-chunk-size"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 17,
+          "col": 3,
+          "lit": "enableCrossOsArchive"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 19,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 21,
+          "col": 3,
+          "lit": "fail-on-cache-miss"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 23,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 4,
+          "line": 25,
+          "col": 3,
+          "lit": "lookup-only"
+        },
+        "value": {
+          "type": 0,
+          "file": 4,
+          "line": 27,
+          "col": 14,
+          "lit": "false"
+        }
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/restore/index.js",
+    "pre": null,
+    "post": "dist/save/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "success()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action pre node.js file: N/A.
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/restore/index.js.
+[2025-10-25 21:10:35Z INFO ActionManager] Action post node.js file: dist/save/index.js.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Codecov",
+  "description": "GitHub Action that uploads coverage reports for your repository to codecov.io",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 5,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 8,
+          "col": 3,
+          "lit": "file"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 11,
+          "col": 3,
+          "lit": "files"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 14,
+          "col": 3,
+          "lit": "directory"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 17,
+          "col": 3,
+          "lit": "flags"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 20,
+          "col": 3,
+          "lit": "full_report"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 23,
+          "col": 3,
+          "lit": "commit_parent"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 26,
+          "col": 3,
+          "lit": "dry_run"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 29,
+          "col": 3,
+          "lit": "env_vars"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 32,
+          "col": 3,
+          "lit": "fail_ci_if_error"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 35,
+          "col": 3,
+          "lit": "functionalities"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 38,
+          "col": 3,
+          "lit": "gcov"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 41,
+          "col": 3,
+          "lit": "gcov_args"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 44,
+          "col": 3,
+          "lit": "gcov_executable"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 47,
+          "col": 3,
+          "lit": "gcov_ignore"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 50,
+          "col": 3,
+          "lit": "gcov_include"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 53,
+          "col": 3,
+          "lit": "move_coverage_to_trash"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 56,
+          "col": 3,
+          "lit": "name"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 59,
+          "col": 3,
+          "lit": "network_filter"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 62,
+          "col": 3,
+          "lit": "network_prefix"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 65,
+          "col": 3,
+          "lit": "os"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 68,
+          "col": 3,
+          "lit": "override_branch"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 71,
+          "col": 3,
+          "lit": "override_build"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 74,
+          "col": 3,
+          "lit": "override_commit"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 77,
+          "col": 3,
+          "lit": "override_pr"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 80,
+          "col": 3,
+          "lit": "override_tag"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 83,
+          "col": 3,
+          "lit": "root_dir"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 86,
+          "col": 3,
+          "lit": "slug"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 89,
+          "col": 3,
+          "lit": "swift"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 92,
+          "col": 3,
+          "lit": "swift_project"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 95,
+          "col": 3,
+          "lit": "upstream_proxy"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 98,
+          "col": 3,
+          "lit": "url"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 101,
+          "col": 3,
+          "lit": "verbose"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 104,
+          "col": 3,
+          "lit": "version"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 107,
+          "col": 3,
+          "lit": "working-directory"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 110,
+          "col": 3,
+          "lit": "xcode"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 113,
+          "col": 3,
+          "lit": "xcode_archive_path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 116,
+          "col": 3,
+          "lit": "xtra_args"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": false,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": null,
+    "nodeVersion": "node16",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/index.js, no more preparation.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManager] Load action that reference repository from 'C:\Users\user\ProjectSW\actions-runner\_work\_actions\codecov\codecov-action\v3'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Actions': 'C:\Users\user\ProjectSW\actions-runner\_work\_actions'
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property author.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Ignore action property branding.
+[2025-10-25 21:10:35Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Codecov",
+  "description": "GitHub Action that uploads coverage reports for your repository to codecov.io",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 5,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 8,
+          "col": 3,
+          "lit": "file"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 11,
+          "col": 3,
+          "lit": "files"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 14,
+          "col": 3,
+          "lit": "directory"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 17,
+          "col": 3,
+          "lit": "flags"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 20,
+          "col": 3,
+          "lit": "full_report"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 23,
+          "col": 3,
+          "lit": "commit_parent"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 26,
+          "col": 3,
+          "lit": "dry_run"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 29,
+          "col": 3,
+          "lit": "env_vars"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 32,
+          "col": 3,
+          "lit": "fail_ci_if_error"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 35,
+          "col": 3,
+          "lit": "functionalities"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 38,
+          "col": 3,
+          "lit": "gcov"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 41,
+          "col": 3,
+          "lit": "gcov_args"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 44,
+          "col": 3,
+          "lit": "gcov_executable"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 47,
+          "col": 3,
+          "lit": "gcov_ignore"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 50,
+          "col": 3,
+          "lit": "gcov_include"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 53,
+          "col": 3,
+          "lit": "move_coverage_to_trash"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 56,
+          "col": 3,
+          "lit": "name"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 59,
+          "col": 3,
+          "lit": "network_filter"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 62,
+          "col": 3,
+          "lit": "network_prefix"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 65,
+          "col": 3,
+          "lit": "os"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 68,
+          "col": 3,
+          "lit": "override_branch"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 71,
+          "col": 3,
+          "lit": "override_build"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 74,
+          "col": 3,
+          "lit": "override_commit"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 77,
+          "col": 3,
+          "lit": "override_pr"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 80,
+          "col": 3,
+          "lit": "override_tag"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 83,
+          "col": 3,
+          "lit": "root_dir"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 86,
+          "col": 3,
+          "lit": "slug"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 89,
+          "col": 3,
+          "lit": "swift"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 92,
+          "col": 3,
+          "lit": "swift_project"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 95,
+          "col": 3,
+          "lit": "upstream_proxy"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 98,
+          "col": 3,
+          "lit": "url"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 101,
+          "col": 3,
+          "lit": "verbose"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 104,
+          "col": 3,
+          "lit": "version"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 107,
+          "col": 3,
+          "lit": "working-directory"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 110,
+          "col": 3,
+          "lit": "xcode"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 113,
+          "col": 3,
+          "lit": "xcode_archive_path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 5,
+          "line": 116,
+          "col": 3,
+          "lit": "xtra_args"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": false,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": null,
+    "nodeVersion": "node16",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-10-25 21:10:35Z INFO ActionManager] Action pre node.js file: N/A.
+[2025-10-25 21:10:35Z INFO ActionManager] Action node.js file: dist/index.js.
+[2025-10-25 21:10:35Z INFO ActionManager] Action post node.js file: N/A.
+[2025-10-25 21:10:35Z INFO DockerCommandManager] Which2: 'docker'
+[2025-10-25 21:10:35Z INFO DockerCommandManager] Location: 'C:\Program Files\Docker\Docker\resources\bin\docker.EXE'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO JobExtension] Adding .
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO JobExtension] Total accessible running process: 320.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO JobExtension] Start checking service connectivity in background.
+[2025-10-25 21:10:35Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "setup_job",
+  "type": "runner",
+  "stage": "Pre",
+  "stepId": "a781171d-a643-4722-bd8e-98947b96a8fe",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 6,
+  "startTime": "2025-10-25T21:10:29.9370581Z",
+  "finishTime": "2025-10-25T21:10:35.6999584Z"
+}.
+[2025-10-25 21:10:35Z INFO JobRunner] Total job steps: 7.
+[2025-10-25 21:10:35Z INFO JobRunner] Run all job steps.
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Initialize containers'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: true
+[2025-10-25 21:10:35Z INFO StepsRunner] Starting the step.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Work': 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO StepsRunner] Which2: 'chcp'
+[2025-10-25 21:10:35Z INFO StepsRunner] Location: 'C:\Windows\system32\chcp.COM'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper] Starting process:
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   File name: 'C:\Windows\system32\chcp.COM'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Arguments: '65001'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Working directory: 'C:\Users\user\ProjectSW\actions-runner\_work'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Persist current code page: 'True'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper] Process started with process id 25448, waiting for process exit.
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-10-25 21:10:35Z INFO ProcessInvokerWrapper] Finished process 25448 with exit code 0, and elapsed time 00:00:00.0266225.
+[2025-10-25 21:10:35Z INFO StepsRunner] Successfully returned to code page 65001 (UTF8)
+[2025-10-25 21:10:35Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'a781171d-a643-4722-bd8e-98947b96a8fe', success rate: 1/1.
+[2025-10-25 21:10:35Z ERR  StepsRunner] Caught exception from step: System.NotSupportedException: Container operations are only supported on Linux runners
+   at GitHub.Runner.Worker.ContainerOperationProvider.StartContainersAsync(IExecutionContext executionContext, Object data)
+   at GitHub.Runner.Worker.JobExtensionRunner.RunAsync()
+   at GitHub.Runner.Worker.StepsRunner.RunStepAsync(IStep step, CancellationToken jobCancellationToken)
+[2025-10-25 21:10:35Z INFO StepsRunner] Step result: Failed
+[2025-10-25 21:10:35Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "initialize_containers",
+  "type": "runner",
+  "stage": "Pre",
+  "stepId": "21fa70ea-2f85-4566-8a5e-a54209e40ea5",
+  "stepContextName": "21fa70ea2f8545668a5ea54209e40ea5",
+  "result": "failed",
+  "errorMessages": [
+    "Container operations are only supported on Linux runners"
+  ],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-10-25T21:10:35.7172285Z",
+  "finishTime": "2025-10-25T21:10:35.790648Z"
+}.
+[2025-10-25 21:10:35Z INFO StepsRunner] Update job result with current step result 'Failed'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Checkout code'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Set up Python'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Cache pip dependencies'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Install dependencies'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Run unit tests'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO StepsRunner] Processing step: DisplayName='Upload coverage to Codecov'
+[2025-10-25 21:10:35Z INFO StepsRunner] Evaluating: success()
+[2025-10-25 21:10:35Z INFO StepsRunner] Result: false
+[2025-10-25 21:10:35Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-10-25 21:10:35Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-10-25 21:10:35Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-10-25 21:10:35Z INFO JobRunner] Finalize job.
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:35Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:35Z INFO JobExtension] Initialize Env context
+[2025-10-25 21:10:35Z INFO JobExtension] Initialize steps context
+[2025-10-25 21:10:35Z INFO JobExtension] Total accessible running process: 320.
+[2025-10-25 21:10:35Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "complete_job",
+  "type": "runner",
+  "stage": "Post",
+  "stepId": "031e11eb-e745-4a40-b474-f5cd6f558da0",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-10-25T21:10:35.8040552Z",
+  "finishTime": "2025-10-25T21:10:35.8162593Z"
+}.
+[2025-10-25 21:10:35Z INFO JobRunner] Job result after all job steps finish: Failed
+[2025-10-25 21:10:35Z INFO JobRunner] Completing the job execution context.
+[2025-10-25 21:10:35Z INFO JobRunner] Shutting down the job server queue.
+[2025-10-25 21:10:35Z INFO JobServerQueue] Fire signal to shutdown all queues.
+[2025-10-25 21:10:36Z INFO JobServerQueue] All queue process task stopped.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Try to append 1 batches web console lines for record '21fa70ea-2f85-4566-8a5e-a54209e40ea5', success rate: 1/1.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Try to append 1 batches web console lines for record '031e11eb-e745-4a40-b474-f5cd6f558da0', success rate: 1/1.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Web console line queue drained.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Uploading 4 files in one shot.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Try to upload 4 log files or attachments, success rate: 4/4.
+[2025-10-25 21:10:36Z INFO JobServerQueue] File upload queue drained.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Starting results-based upload queue...
+[2025-10-25 21:10:36Z INFO JobServerQueue] Uploading 4 file(s) in one shot through results service.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, C:\Users\user\ProjectSW\actions-runner\_diag\blocks\a0dca4f6-5cde-48df-97f4-edfef49d47fc_a781171d-a643-4722-bd8e-98947b96a8fe.1
+[2025-10-25 21:10:36Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-10-25 21:10:36Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, C:\Users\user\ProjectSW\actions-runner\_diag\blocks\a0dca4f6-5cde-48df-97f4-edfef49d47fc_21fa70ea-2f85-4566-8a5e-a54209e40ea5.1
+[2025-10-25 21:10:37Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-10-25 21:10:37Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, C:\Users\user\ProjectSW\actions-runner\_diag\blocks\a0dca4f6-5cde-48df-97f4-edfef49d47fc_031e11eb-e745-4a40-b474-f5cd6f558da0.1
+[2025-10-25 21:10:37Z INFO JobServerQueue] Got a job log file to send to results service.
+[2025-10-25 21:10:37Z INFO JobServerQueue] Starting upload of job log file to results service ResultsLog, C:\Users\user\ProjectSW\actions-runner\_diag\blocks\a0dca4f6-5cde-48df-97f4-edfef49d47fc_fdf4b2f5-09e4-5d89-82e5-30de749dc9ca.1
+[2025-10-25 21:10:38Z INFO JobServerQueue] Tried to upload 4 file(s) to results, success rate: 4/4.
+[2025-10-25 21:10:38Z INFO JobServerQueue] Results upload queue drained.
+[2025-10-25 21:10:38Z INFO JobServerQueue] Timeline update queue drained.
+[2025-10-25 21:10:38Z INFO JobServerQueue] Disposing job server ...
+[2025-10-25 21:10:38Z INFO JobServerQueue] Disposing results server ...
+[2025-10-25 21:10:38Z INFO JobServerQueue] All queue process tasks have been stopped, and all queues are drained.
+[2025-10-25 21:10:38Z INFO TempDirectoryManager] Cleaning runner temp folder: C:\Users\user\ProjectSW\actions-runner\_work\_temp
+[2025-10-25 21:10:38Z INFO HostContext] Well known directory 'Bin': 'C:\Users\user\ProjectSW\actions-runner\bin'
+[2025-10-25 21:10:38Z INFO HostContext] Well known directory 'Root': 'C:\Users\user\ProjectSW\actions-runner'
+[2025-10-25 21:10:38Z INFO HostContext] Well known directory 'Diag': 'C:\Users\user\ProjectSW\actions-runner\_diag'
+[2025-10-25 21:10:38Z INFO HostContext] Well known config file 'Telemetry': 'C:\Users\user\ProjectSW\actions-runner\_diag\.telemetry'
+[2025-10-25 21:10:38Z INFO JobRunner] Raising job completed against run service
+[2025-10-25 21:10:38Z INFO Worker] Job completed.
