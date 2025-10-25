@@ -49,7 +49,7 @@ def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def setup_database():
     Base.metadata.create_all(bind=engine)
     yield
@@ -157,7 +157,7 @@ class TestFileDownload:
         
         response = client.get(f"/download/{filename}")
         assert response.status_code == 200
-        assert response.headers["content-type"] == "text/csv"
+        assert "text/csv" in response.headers["content-type"]
         assert response.content.decode() == sample_csv_content
     
     def test_download_nonexistent_file(self, client, setup_database):

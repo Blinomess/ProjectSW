@@ -35,6 +35,10 @@ async def upload_data(
 
     filetype = "photo" if file.filename.endswith(".jpeg") or file.filename.endswith(".png") or file.filename.endswith(".jpg") else "csv" if file.filename.endswith(".csv") else "other"
 
+    # Если title не указан, используем имя файла
+    if title is None:
+        title = file.filename
+    
     metadata = schemas.FileMetadataCreate(
         filename=file.filename,
         title=title,
