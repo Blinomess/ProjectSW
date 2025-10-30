@@ -13,7 +13,7 @@ env:
 jobs:
 
   backend-tests:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     services:
       postgres:
         image: postgres:13
@@ -73,7 +73,7 @@ jobs:
 
 
   frontend-tests:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
            
     steps:
     - name: Checkout code
@@ -86,7 +86,7 @@ jobs:
 
 
   integration-tests:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     needs: [backend-tests, frontend-tests]
 
     steps:
@@ -132,7 +132,7 @@ jobs:
 
 
   security-scan:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     needs: [backend-tests]
 
     steps:
@@ -159,7 +159,7 @@ jobs:
 
 
   build-images:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     needs: [integration-tests, security-scan]
     if: github.event_name == 'push'
 
@@ -221,7 +221,7 @@ jobs:
         cache-to: type=gha,mode=max
 
   deploy-production:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     needs: [build-images]
     if: github.ref == 'refs/heads/main'
     environment: production
@@ -240,7 +240,7 @@ jobs:
         ./k8s/deploy.sh
     
   notify:
-    runs-on: [self-hosted, windows]
+    runs-on: [self-hosted, linux]
     needs: [deploy-production]
     if: always()
     continue-on-error: true
