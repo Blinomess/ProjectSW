@@ -210,7 +210,7 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-        
+
     - name: Build frontend
       uses: docker/build-push-action@v5
       with:
@@ -239,18 +239,3 @@ jobs:
       run: |
         cd k8s
         ./k8s/deploy.sh
-    
-  notify:
-    runs-on: [self-hosted, linux]
-    needs: [deploy-production]
-    if: always()
-    continue-on-error: true
-
-    steps:
-    - name: Notify on success
-      if: needs.deploy-production.result == 'success'
-      run: echo "Deployment successful!"
-
-    - name: Notify on failure
-      if: needs.deploy-production.result == 'failure'
-      run: echo "Deployment failed!"
