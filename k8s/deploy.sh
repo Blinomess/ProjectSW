@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# Скрипт для развертывания приложения в Minikube
+# Скрипт для развертывания приложения в Minikube с Docker Hub
+
+# Настройки
+NAMESPACE="project-sw"
+DOCKER_USER="blinomesss"
+IMAGE_TAG="latest"
 
 echo "Создание namespace..."
 kubectl apply -f namespace.yaml
@@ -19,41 +24,32 @@ echo "Развертывание PostgreSQL..."
 kubectl apply -f postgres-deployment.yaml
 
 echo "Ожидание готовности PostgreSQL..."
-kubectl wait --for=condition=available --timeout=300s deployment/postgres -n project-sw
+kubectl wait --for=condition=available --timeout=300s deployment/postgres -n $NAMESPACE
 
-echo "Развертывание сервиса аутентификации..."
-kubectl apply -f auth-deployment.yaml
-
-echo "Развертывание сервиса данных..."
-kubectl apply -f data-deployment.yaml
-
-echo "Развертывание сервиса обработки..."
-kubectl apply -f processing-deployment.yaml
+echo "Обновление образов сервисов с Docker Hub..."
+kubectl set image deployment/auth-service auth-service=$DOCKER_USER/auth-service:$IMAGE_TAG -n $NAMESPACE
+kubectl set image deployment/data-service data-service=$DOCKER_USER/data-service:$IMAGE_TAG -n $NAMESPACE
+kubectl set image deployment/processing-service processing-service=$DOCKER_USER/processing-service:$IMAGE_TAG -n $NAMESPACE
+kubectl set image deployment/frontend frontend=$DOCKER_USER/frontend:$IMAGE_TAG -n $NAMESPACE
 
 echo "Создание nginx ConfigMap..."
 kubectl apply -f nginx-configmap.yaml
 
-echo "Развертывание фронтенда..."
-kubectl apply -f frontend-deployment.yaml
-
-echo "Создание Ingress..."
+echo "Обновление/развертывание Ingress..."
 kubectl apply -f ingress.yaml
 
 echo "Ожидание готовности всех сервисов..."
-kubectl wait --for=condition=available --timeout=300s deployment/auth-service -n project-sw
-kubectl wait --for=condition=available --timeout=300s deployment/data-service -n project-sw
-kubectl wait --for=condition=available --timeout=300s deployment/processing-service -n project-sw
-kubectl wait --for=condition=available --timeout=300s deployment/frontend -n project-sw
+kubectl wait --for=condition=available --timeout=300s deployment/auth-service -n $NAMESPACE
+kubectl wait --for=condition=available --timeout=300s deployment/data-service -n $NAMESPACE
+kubectl wait --for=condition=available --timeout=300s deployment/processing-service -n $NAMESPACE
+kubectl wait --for=condition=available --timeout=300s deployment/frontend -n $NAMESPACE
 
-echo "Получение информации о сервисах..."
-echo "Сервисы:"
-kubectl get services -n project-sw
-
-echo "Поды:"
-kubectl get pods -n project-sw
+echo "Получение информации о сервисах и подах..."
+kubectl get services -n $NAMESPACE
+kubectl get pods -n $NAMESPACE
 
 echo "Получение URL для доступа к приложению..."
-minikube service frontend-service -n project-sw --url
+minikube service frontend-service -n $NAMESPACE --url
 
 echo "Развертывание завершено!"
-echo "Для доступа к приложению выполните: minikube service frontend-service -n project-sw"
+echo "Для доступа к приложению выполните: minikube service frontend-service -n $NAMESPACE"
