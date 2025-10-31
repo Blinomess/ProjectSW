@@ -44,11 +44,6 @@ check_dependencies() {
         error "Python 3 не установлен"
         exit 1
     fi
-
-    if ! command -v node &> /dev/null; then
-        error "Node.js не установлен (нужен для проверки синтаксиса JS)"
-        exit 1
-    fi
     
     success "Все зависимости установлены"
 }
@@ -58,7 +53,7 @@ install_test_dependencies() {
     log "Установка зависимостей для тестов..."
     
     # Python зависимости
-    pip install -r requirements-test.txt
+    pip install -r ./requirements-test.txt
     
     success "Зависимости установлены"
 }
