@@ -3,6 +3,7 @@ import os
 import tempfile
 import sys
 from pathlib import Path
+from unittest.mock import patch
 
 # Добавляем родительский каталог в путь для импорта
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -53,7 +54,7 @@ class TestCSVAnalysis:
         """Анализ всех столбцов CSV файла"""
         filename, filepath = sample_csv_file
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -76,7 +77,7 @@ class TestCSVAnalysis:
         """Анализ конкретных столбцов CSV файла"""
         filename, filepath = sample_csv_file
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}?columns=2,3")
             
         assert response.status_code == 200
@@ -95,7 +96,7 @@ class TestCSVAnalysis:
         """Анализ одного столбца"""
         filename, filepath = sample_csv_file
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}?columns=3")
             
         assert response.status_code == 200
@@ -108,7 +109,7 @@ class TestCSVAnalysis:
     
     def test_analyze_csv_nonexistent_file(self, client, temp_storage):
         """Анализ несуществующего файла"""
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get("/analyze/nonexistent.csv")
             
         assert response.status_code == 404
@@ -118,7 +119,7 @@ class TestCSVAnalysis:
         """Анализ с неверными номерами столбцов"""
         filename, filepath = sample_csv_file
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}?columns=10,20")
             
         assert response.status_code == 400
@@ -137,7 +138,7 @@ class TestCSVAnalysis:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -164,7 +165,7 @@ class TestCSVAnalysis:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -182,7 +183,7 @@ class TestCSVPreview:
         """Получение превью CSV файла"""
         filename, filepath = sample_csv_file
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -208,7 +209,7 @@ class TestErrorHandling:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write("")
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 400
@@ -224,7 +225,7 @@ class TestErrorHandling:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code in [200, 500]
@@ -239,7 +240,7 @@ class TestErrorHandling:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code in [200, 500]
@@ -257,7 +258,7 @@ class TestErrorHandling:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -283,7 +284,7 @@ class TestEdgeCases:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -308,7 +309,7 @@ John,25,50000"""
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -335,7 +336,7 @@ John,25,50000"""
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200
@@ -361,7 +362,7 @@ class TestPerformance:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        with patch('main.STORAGE_DIR', temp_storage):
+        with patch('main.get_storage_dir', return_value=temp_storage):
             response = client.get(f"/analyze/{filename}")
             
         assert response.status_code == 200

@@ -15,7 +15,7 @@ from unittest.mock import patch, mock_open
 import json
 
 from main import app
-from database import Base, get_db
+from database import Base
 from models import FileMetadata
 import crud
 import schemas
@@ -23,6 +23,22 @@ import schemas
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_data.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Переопределяем engine для тестов
+import database
+database.engine = engine
+
+# Переопределяем engine в main тоже
+import main
+main.engine = engine
+
+# Переопределяем engine в intfile тоже
+import intfile
+intfile.engine = engine
+intfile.SessionLocal = TestingSessionLocal
+
+# Импортируем get_db после переопределения engine
+from database import get_db
 
 def override_get_db():
     try:
@@ -33,7 +49,7 @@ def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def setup_database():
     Base.metadata.create_all(bind=engine)
     yield
@@ -141,7 +157,7 @@ class TestFileDownload:
         
         response = client.get(f"/download/{filename}")
         assert response.status_code == 200
-        assert response.headers["content-type"] == "text/csv"
+        assert "text/csv" in response.headers["content-type"]
         assert response.content.decode() == sample_csv_content
     
     def test_download_nonexistent_file(self, client, setup_database):

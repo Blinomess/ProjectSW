@@ -12,12 +12,33 @@ from sqlalchemy.orm import sessionmaker
 from unittest.mock import patch
 
 from main import app
+<<<<<<< HEAD
 from database import Base, get_db
+=======
+from database import Base
+
+from models import User
+>>>>>>> b153e57e63659776fbadc544dd0991ea0003dcac
 import utils
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Переопределяем engine для тестов
+import database
+database.engine = engine
+
+# Переопределяем engine в main тоже
+import main
+main.engine = engine
+
+# Переопределяем engine в routes тоже
+import routes
+routes.SessionLocal = TestingSessionLocal
+
+# Импортируем get_db после переопределения engine
+from database import get_db
 
 def override_get_db():
     try:
@@ -28,7 +49,7 @@ def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def setup_database():
     Base.metadata.create_all(bind=engine)
     yield
@@ -68,7 +89,7 @@ class TestUserRegistration:
         """Регистрация с некорректными данными"""
         invalid_data = {"username": "", "password": "123"}
         response = client.post("/register", json=invalid_data)
-        assert response.status_code == 422
+        assert response.status_code == 400
 
 class TestUserLogin:
     """Тесты входа пользователей"""

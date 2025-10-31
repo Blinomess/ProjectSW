@@ -13,7 +13,7 @@ env:
 jobs:
 
   backend-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     services:
       postgres:
         image: postgres:13
@@ -58,6 +58,8 @@ jobs:
         pip install pytest pytest-asyncio pytest-cov httpx
 
     - name: Run unit tests
+      env:
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       run: |
         cd backend/${{ matrix.service }}
         pytest tests/ -v --cov=. --cov-report=xml:coverage.xml --cov-report=html
@@ -71,7 +73,7 @@ jobs:
 
 
   frontend-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
            
     steps:
     - name: Checkout code
@@ -84,7 +86,7 @@ jobs:
 
 
   integration-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     needs: [backend-tests, frontend-tests]
 
     steps:
@@ -95,6 +97,12 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+
+    - name: Install test dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-test.txt
+        pip install requests
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -107,24 +115,24 @@ jobs:
         docker build -t frontend-test ./frontend
 
     - name: Start services
-      run: docker-compose -f docker-compose.test.yml up -d
+      run: docker compose -f docker-compose.test.yml up -d --build
 
     - name: Wait for services
       run: |
         sleep 30
-        docker-compose -f docker-compose.test.yml ps
+        docker compose -f docker-compose.test.yml ps
 
     - name: Run integration tests
       run: |
-        python -m pip install pytest requests
-        pytest tests/integration/ -v
+        cd tests/integration
+        python -m pytest test_integration.py -v
 
     - name: Stop services
-      run: docker-compose -f docker-compose.test.yml down
+      run: docker compose -f docker-compose.test.yml down
 
 
   security-scan:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     needs: [backend-tests]
 
     steps:
@@ -150,10 +158,10 @@ jobs:
         echo "Basic security checks passed!"
 
 
-  build-and-push:
-    runs-on: ubuntu-latest
+  build-images:
+    runs-on: [self-hosted, linux]
     needs: [integration-tests, security-scan]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push'
 
     steps:
     - name: Checkout code
@@ -162,72 +170,72 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Log in to Container Registry
+    - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Set repository name to lowercase
+      run: |
+        echo "REPO_NAME_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-    - name: Build and push Docker images
+    - name: Build auth-service
       uses: docker/build-push-action@v5
       with:
+        context: ./backend/authentification_service
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/auth-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/data-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/processing-service:${{ github.sha }}
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:${{ github.sha }}
+        tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build data-service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend/data_service
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ secrets.DOCKER_USERNAME }}/data-service:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build processing-service
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend/processing_service
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ secrets.DOCKER_USERNAME }}/processing-service:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
 
-  deploy-staging:
-    runs-on: ubuntu-latest
-    needs: [build-and-push]
-    if: github.ref == 'refs/heads/develop'
-    environment: staging
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Deploy to staging
-      run: |
-         echo "Deploying to staging environment..."
-         chmod +x scripts/deploy-minikube.sh
-         ./scripts/deploy-minikube.sh
-         echo "Staging deploy complete!"
-
+    - name: Build frontend
+      uses: docker/build-push-action@v5
+      with:
+        context: ./frontend
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
   deploy-production:
-    runs-on: ubuntu-latest
-    needs: [build-and-push]
+    runs-on: [self-hosted, linux]
+    needs: [build-images]
     if: github.ref == 'refs/heads/main'
     environment: production
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Deploy to production
+    - name: Set Docker env to Minikube
       run: |
-         echo "Deploying to production environment..."
-         chmod +x scripts/deploy-minikube.sh
-         ./scripts/deploy-minikube.sh
-         echo "Production deploy complete!"
-
-
-  notify:
-    runs-on: ubuntu-latest
-    needs: [deploy-staging, deploy-production]
-    if: always()
-    continue-on-error: true
-
-    steps:
-    - name: Notify on success
-      if: needs.deploy-staging.result == 'success' || needs.deploy-production.result == 'success'
-      run: echo "Deployment successful!"
-
-    - name: Notify on failure
-      if: needs.deploy-staging.result == 'failure' || needs.deploy-production.result == 'failure'
-      run: echo "Deployment failed!"
+        minikube start
+        eval $(minikube docker-env)
+    
+    - name: Deploy to Minikube
+      run: |
+        cd k8s
+        ./k8s/deploy.sh

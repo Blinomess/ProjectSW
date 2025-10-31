@@ -12,11 +12,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-STORAGE_DIR = "/app/storage"
+def get_storage_dir():
+    """Получает путь к папке storage из переменной окружения"""
+    return os.getenv("STORAGE_DIR", "/app/storage")
 
 @app.get("/analyze/{filename}")
 async def analyze_file(filename: str, columns: str = Query(None, description="Номера столбцов через запятую, начиная с 1")):
-    file_path = os.path.join(STORAGE_DIR, filename)
+    file_path = os.path.join(get_storage_dir(), filename)
 
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="Файл не найден")

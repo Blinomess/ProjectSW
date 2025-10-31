@@ -7,14 +7,12 @@ from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
     try:
         Base.metadata.create_all(bind=engine)
         print("Database tables created successfully")
     except Exception as e:
         print(f"Error creating database tables: {e}")
     yield
-    # Shutdown
     print("Application shutdown")
 
 app = FastAPI(lifespan=lifespan)
