@@ -1,12 +1,3 @@
-#!/bin/bash
-
-# Скрипт для развертывания приложения в Minikube с Docker Hub
-
-# Настройки
-NAMESPACE="project-sw"
-DOCKER_USER="blinomesss"
-IMAGE_TAG="latest"
-
 echo "Создание namespace..."
 kubectl apply -f namespace.yaml
 
@@ -26,6 +17,14 @@ kubectl apply -f postgres-deployment.yaml
 echo "Ожидание готовности PostgreSQL..."
 kubectl wait --for=condition=available --timeout=300s deployment/postgres -n $NAMESPACE
 
+# Сначала создаём или обновляем деплойменты сервисов
+echo "Создание/обновление деплойментов сервисов..."
+kubectl apply -f auth-deployment.yaml -n $NAMESPACE
+kubectl apply -f data-deployment.yaml -n $NAMESPACE
+kubectl apply -f processing-deployment.yaml -n $NAMESPACE
+kubectl apply -f frontend-deployment.yaml -n $NAMESPACE
+
+# Затем обновляем образы
 echo "Обновление образов сервисов с Docker Hub..."
 kubectl set image deployment/auth-service auth-service=$DOCKER_USER/auth-service:$IMAGE_TAG -n $NAMESPACE
 kubectl set image deployment/data-service data-service=$DOCKER_USER/data-service:$IMAGE_TAG -n $NAMESPACE
