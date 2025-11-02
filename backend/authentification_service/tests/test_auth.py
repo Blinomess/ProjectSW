@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 import sys
 import os
 from pathlib import Path
@@ -13,9 +12,13 @@ from sqlalchemy.orm import sessionmaker
 from unittest.mock import patch
 
 from main import app
+<<<<<<< HEAD
+from database import Base, get_db
+=======
 from database import Base
 
 from models import User
+>>>>>>> b153e57e63659776fbadc544dd0991ea0003dcac
 import utils
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
