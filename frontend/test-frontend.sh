@@ -2,6 +2,8 @@
 # Простой тест фронтенда без Node.js зависимостей
 echo "=== Frontend Tests ==="
 
+cd "$GITHUB_WORKSPACE" || exit 1
+
 # Проверяем что JS файлы существуют
 echo "Checking JavaScript files..."
 if [ -f "frontend/scripts/script.js" ]; then
