@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Простой тест фронтенда без Node.js зависимостей
 echo "=== Frontend Tests ==="
 
