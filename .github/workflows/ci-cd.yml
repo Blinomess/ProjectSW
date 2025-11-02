@@ -165,6 +165,7 @@ jobs:
 
   build-images:
     runs-on: [self-hosted, linux]
+    environment: production
     needs: [integration-tests, security-scan]
     if: github.event_name == 'push'
 
