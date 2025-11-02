@@ -2,7 +2,6 @@
 # Простой тест фронтенда без Node.js зависимостей
 echo "=== Frontend Tests ==="
 
-ls "$GITHUB_WORKSPACE"
 
 
 # Проверяем что JS файлы существуют
@@ -26,7 +25,7 @@ for file in frontend/scripts/*.js; do
     if [ -f "$file" ]; then
         echo "Checking $file..."
         # Простая проверка синтаксиса
-        if node -c "$file" 2>/dev/null; then
+        if node -c "$file"; then
             echo "$file syntax OK"
         else
             echo "$file syntax error"

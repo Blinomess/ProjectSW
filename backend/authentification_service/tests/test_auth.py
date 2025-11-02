@@ -12,28 +12,19 @@ from sqlalchemy.orm import sessionmaker
 from unittest.mock import patch
 
 from main import app
-<<<<<<< HEAD
-from database import Base, get_db
-=======
 from database import Base
-
-from models import User
->>>>>>> b153e57e63659776fbadc544dd0991ea0003dcac
 import utils
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Переопределяем engine для тестов
 import database
 database.engine = engine
 
-# Переопределяем engine в main тоже
 import main
 main.engine = engine
 
-# Переопределяем engine в routes тоже
 import routes
 routes.SessionLocal = TestingSessionLocal
 
