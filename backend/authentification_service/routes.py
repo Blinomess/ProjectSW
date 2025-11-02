@@ -44,7 +44,6 @@ async def login(user: UserModel, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter_by(username=user.username).first()
     if not db_user or not utils.verify_password(user.password, db_user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid credentials")
-
     jwt_secret = os.getenv("JWT_SECRET", "myjwtsecret")
     jwt_algorithm = "HS256"
     expires_in_seconds = int(os.getenv("JWT_EXPIRES_IN", "3600"))
