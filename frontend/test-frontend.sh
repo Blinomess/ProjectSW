@@ -18,7 +18,6 @@ else
     echo "upload.js missing"
     exit 1
 fi
-
 # Проверяем синтаксис JS файлов
 echo "Checking JavaScript syntax..."
 for file in frontend/scripts/*.js; do
