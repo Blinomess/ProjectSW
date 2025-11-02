@@ -71,13 +71,18 @@ jobs:
         flags: ${{ matrix.service }}
         name: ${{ matrix.service }}-coverage
 
-
   frontend-tests:
     runs-on: [self-hosted, linux]
            
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Install Node.js
+      run: |
+        curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
 
     - name: Run frontend tests
       run: |
