@@ -1,30 +1,40 @@
+#!/bin/bash
+set -e
+
+# === Глобальные переменные ===
+NAMESPACE="project-sw"
+DOCKER_USER="blinomess"
+IMAGE_TAG="latest"
+
+echo "Используем namespace: $NAMESPACE"
+echo "Docker Hub пользователь: $DOCKER_USER"
+echo "Тег образов: $IMAGE_TAG"
+
 echo "Создание namespace..."
 kubectl apply -f namespace.yaml
 
 echo "Создание ConfigMaps и Secrets..."
-kubectl apply -f configmap.yaml
-kubectl apply -f secret.yaml
+kubectl apply -f configmap.yaml -n $NAMESPACE
+kubectl apply -f secret.yaml -n $NAMESPACE
 
 echo "Создание PersistentVolumes и StorageClass..."
-kubectl apply -f persistent-volume.yaml
+kubectl apply -f persistent-volume.yaml -n $NAMESPACE
 
 echo "Создание PersistentVolumeClaims..."
-kubectl apply -f persistent-volume-claim.yaml
+kubectl apply -f persistent-volume-claim.yaml -n $NAMESPACE
 
 echo "Развертывание PostgreSQL..."
-kubectl apply -f postgres-deployment.yaml
+kubectl apply -f postgres-deployment.yaml -n $NAMESPACE
 
 echo "Ожидание готовности PostgreSQL..."
 kubectl wait --for=condition=available --timeout=300s deployment/postgres -n $NAMESPACE
 
-# Сначала создаём или обновляем деплойменты сервисов
 echo "Создание/обновление деплойментов сервисов..."
 kubectl apply -f auth-deployment.yaml -n $NAMESPACE
 kubectl apply -f data-deployment.yaml -n $NAMESPACE
 kubectl apply -f processing-deployment.yaml -n $NAMESPACE
 kubectl apply -f frontend-deployment.yaml -n $NAMESPACE
 
-# Затем обновляем образы
 echo "Обновление образов сервисов с Docker Hub..."
 kubectl set image deployment/auth-service auth-service=$DOCKER_USER/auth-service:$IMAGE_TAG -n $NAMESPACE
 kubectl set image deployment/data-service data-service=$DOCKER_USER/data-service:$IMAGE_TAG -n $NAMESPACE
@@ -32,10 +42,10 @@ kubectl set image deployment/processing-service processing-service=$DOCKER_USER/
 kubectl set image deployment/frontend frontend=$DOCKER_USER/frontend:$IMAGE_TAG -n $NAMESPACE
 
 echo "Создание nginx ConfigMap..."
-kubectl apply -f nginx-configmap.yaml
+kubectl apply -f nginx-configmap.yaml -n $NAMESPACE
 
 echo "Обновление/развертывание Ingress..."
-kubectl apply -f ingress.yaml
+kubectl apply -f ingress.yaml -n $NAMESPACE
 
 echo "Ожидание готовности всех сервисов..."
 kubectl wait --for=condition=available --timeout=300s deployment/auth-service -n $NAMESPACE
