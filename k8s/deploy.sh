@@ -2,7 +2,7 @@
 set -e
 
 NAMESPACE="project-sw"
-DOCKER_USER="blinomess"
+DOCKER_USER="blinomesss"
 IMAGE_TAG="latest"
 
 echo "Используем namespace: $NAMESPACE"
