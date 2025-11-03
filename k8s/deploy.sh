@@ -38,7 +38,7 @@ echo "Обновление образов сервисов с Docker Hub..."
 kubectl set image deployment/auth-service auth-service=$DOCKER_USER/auth-service:$IMAGE_TAG -n $NAMESPACE
 kubectl set image deployment/data-service data-service=$DOCKER_USER/data-service:$IMAGE_TAG -n $NAMESPACE
 kubectl set image deployment/processing-service processing-service=$DOCKER_USER/processing-service:$IMAGE_TAG -n $NAMESPACE
-kubectl set image deployment/frontend frontend=$DOCKER_USER/frontend:$IMAGE_TAG -n $NAMESPACE
+kubectl set image deployment/frontend nginx=$DOCKER_USER/frontend:$IMAGE_TAG -n $NAMESPACE
 
 echo "Создание nginx ConfigMap..."
 kubectl apply -f nginx-configmap.yaml -n $NAMESPACE
