@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: auth-service
-        image: auth-service:latest
-        imagePullPolicy: Never
+        image: blinomesss/auth-service
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         env:

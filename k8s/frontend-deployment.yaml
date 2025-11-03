@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: frontend:latest
-        imagePullPolicy: Never
+        image: blinomesss/frontend
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         volumeMounts:

@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: processing-service
-        image: processing-service:latest
-        imagePullPolicy: Never
+        image: blinomesss/processing-service
+        imagePullPolicy: Always
         ports:
         - containerPort: 8002
         volumeMounts:

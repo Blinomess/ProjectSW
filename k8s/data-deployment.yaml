@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: data-service
-        image: data-service:latest
-        imagePullPolicy: Never
+        image: blinomesss/data-service
+        imagePullPolicy: Always
         ports:
         - containerPort: 8001
         env:
