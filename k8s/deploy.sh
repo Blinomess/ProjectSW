@@ -5,10 +5,6 @@ NAMESPACE="project-sw"
 DOCKER_USER="blinomesss"
 IMAGE_TAG="latest"
 
-echo "Используем namespace: $NAMESPACE"
-echo "Docker Hub пользователь: $DOCKER_USER"
-echo "Тег образов: $IMAGE_TAG"
-
 echo "Создание namespace..."
 kubectl apply -f namespace.yaml
 
@@ -40,8 +36,6 @@ kubectl set image deployment/data-service data-service=$DOCKER_USER/data-service
 kubectl set image deployment/processing-service processing-service=$DOCKER_USER/processing-service:$IMAGE_TAG -n $NAMESPACE
 kubectl set image deployment/frontend nginx=$DOCKER_USER/frontend:$IMAGE_TAG -n $NAMESPACE
 
-
-
 echo "Создание nginx ConfigMap..."
 kubectl apply -f nginx-configmap.yaml -n $NAMESPACE
 
@@ -53,13 +47,3 @@ kubectl wait --for=condition=available --timeout=300s deployment/auth-service -n
 kubectl wait --for=condition=available --timeout=300s deployment/data-service -n $NAMESPACE
 kubectl wait --for=condition=available --timeout=300s deployment/processing-service -n $NAMESPACE
 kubectl wait --for=condition=available --timeout=300s deployment/frontend -n $NAMESPACE
-
-echo "Получение информации о сервисах и подах..."
-kubectl get services -n $NAMESPACE
-kubectl get pods -n $NAMESPACE
-
-echo "Получение URL для доступа к приложению..."
-minikube service frontend-service -n $NAMESPACE --url
-
-echo "Развертывание завершено!"
-echo "Для доступа к приложению выполните: minikube service frontend-service -n $NAMESPACE"
