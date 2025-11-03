@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# === Глобальные переменные ===
 NAMESPACE="project-sw"
 DOCKER_USER="blinomess"
 IMAGE_TAG="latest"
