@@ -15,9 +15,11 @@ spec:
       labels:
         app: data-service
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: data-service
-        image: blinomesss/data-service
+        image: blinomesss/data-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8001

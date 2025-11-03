@@ -15,9 +15,11 @@ spec:
       labels:
         app: auth-service
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: auth-service
-        image: blinomesss/auth-service
+        image: blinomesss/auth-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000

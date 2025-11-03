@@ -15,9 +15,11 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: nginx
-        image: blinomesss/frontend
+        image: blinomesss/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80

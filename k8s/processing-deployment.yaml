@@ -15,9 +15,11 @@ spec:
       labels:
         app: processing-service
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: processing-service
-        image: blinomesss/processing-service
+        image: blinomesss/processing-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8002
