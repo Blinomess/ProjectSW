@@ -186,13 +186,15 @@ jobs:
       run: |
         echo "REPO_NAME_LOWER=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-    - name: Build auth-service
+    - name: Build and push auth-service
       uses: docker/build-push-action@v5
       with:
         context: ./backend/authentification_service
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ github.sha }}
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -202,7 +204,9 @@ jobs:
         context: ./backend/data_service
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ secrets.DOCKER_USERNAME }}/data-service:${{ github.sha }}
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/data-service:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/data-service:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -212,7 +216,9 @@ jobs:
         context: ./backend/processing_service
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ secrets.DOCKER_USERNAME }}/processing-service:${{ github.sha }}
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/processing-service:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/processing-service:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -223,11 +229,13 @@ jobs:
         context: ./frontend
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/frontend:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-        
+
   deploy-production:
     runs-on: [self-hosted, linux]
     needs: [build-images]

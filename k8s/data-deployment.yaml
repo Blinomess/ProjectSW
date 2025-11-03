@@ -19,7 +19,7 @@ spec:
       - name: regcred
       containers:
       - name: data-service
-        image: blinomesss/data-service:latest
+        image: docker.io/blinomesss/data-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8001
