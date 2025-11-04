@@ -83,6 +83,7 @@ jobs:
       with:
         node-version: 18
 
+        
     - name: Run frontend tests
       run: |
         chmod +x frontend/test-frontend.sh
